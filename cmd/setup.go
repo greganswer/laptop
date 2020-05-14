@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -24,9 +25,22 @@ var setupCmd = &cobra.Command{
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		makeDirectories()
 		downloadBrewfileToHomeDirectory()
 		executeBrewBundle()
 	},
+}
+
+func makeDirectories() {
+	fmt.Println("Creating directories...")
+	paths := []string{
+		filepath.Join(homeDir, "go", "src"),
+		filepath.Join(homeDir, "go", "bin"),
+	}
+	for _, p := range paths {
+		os.MkdirAll(p, os.ModePerm)
+	}
+	finished()
 }
 
 func init() {

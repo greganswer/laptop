@@ -1,0 +1,37 @@
+#
+# Exports
+#
+export VISUAL="vim"     # -w causes terminal to wait till file is closed
+export EDITOR="$VISUAL" # export EDITOR=nano # For Linux
+
+#
+# Bash Completions
+#
+# if [ -f $(brew --prefix)/etc/bash_completion ]; then
+#   . $(brew --prefix)/etc/bash_completion
+# fi
+
+#
+# PATH variable
+#
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+#
+# Go setup
+#
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
+
+#
+# Setup for Python Virtual Environments
+#
+export WORKON_HOME=$HOME/code/.virtualenvs
+export PROJECT_HOME=$HOME/code
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+source /usr/local/bin/virtualenvwrapper.sh

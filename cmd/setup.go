@@ -31,6 +31,17 @@ and usage of using your command.`,
 	},
 }
 
+func init() {
+	// Set package variables.
+	var err error
+	homeDir, err = os.UserHomeDir()
+	failIfError(err)
+	brewfilePath = path.Join(homeDir, "Brewfile")
+
+	// Cobra CLI setup code.
+	rootCmd.AddCommand(setupCmd)
+}
+
 func makeDirectories() {
 	fmt.Println("Creating directories...")
 	paths := []string{
@@ -41,17 +52,6 @@ func makeDirectories() {
 		os.MkdirAll(p, os.ModePerm)
 	}
 	finished()
-}
-
-func init() {
-	// Set package variables.
-	var err error
-	homeDir, err = os.UserHomeDir()
-	failIfError(err)
-	brewfilePath = path.Join(homeDir, "Brewfile")
-
-	// Cobra CLI setup code.
-	rootCmd.AddCommand(setupCmd)
 }
 
 func executeBrewBundle() {

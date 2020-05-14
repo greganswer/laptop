@@ -7,7 +7,7 @@ References:
 package cmd
 
 import (
-	"bytes"
+	"bufio"
 	"fmt"
 	"io"
 	"net/http"
@@ -18,7 +18,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// setupCmd represents the setup command
 var setupCmd = &cobra.Command{
 	Use:   "setup",
 	Short: "A brief description of your command",
@@ -37,12 +36,8 @@ and usage of using your command.`,
 
 		// Execute brew bundle command.
 		fmt.Println("Executing brew bundle...")
-		c := exec.Command("brew", "bundle", "--file", brewfilePath)
-		cmdOutput := &bytes.Buffer{}
-		c.Stdout = cmdOutput
-		failIfError(c.Run())
-
-		fmt.Print(string(cmdOutput.Bytes()))
+		err = executeAndStream("brew", "bundle", "--file", brewfilePath)
+		failIfError(err)
 		finished()
 	},
 }
@@ -51,8 +46,27 @@ func init() {
 	rootCmd.AddCommand(setupCmd)
 }
 
-func downloadFile(url, filePath string) error {
+// executeAndStream executes a shell command and streams the output to the terminal.
+// Reference: https://stackoverflow.com/a/45957859
+func executeAndStream(name string, arg ...string) error {
+	c := exec.Command(name, arg...)
+	stdout, err := c.StdoutPipe()
+	if err != nil {
+		return err
+	}
+	if err := c.Start(); err != nil {
+		return err
+	}
+	scanner := bufio.NewScanner(stdout)
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+	return c.Wait()
+}
 
+// downloadFile copies a file from the internet to the specified file path.
+// Reference: https://golangcode.com/download-a-file-from-a-url
+func downloadFile(url, filePath string) error {
 	// Get the data
 	resp, err := http.Get(url)
 	if err != nil {

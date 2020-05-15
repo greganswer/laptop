@@ -19,21 +19,20 @@ func title(s string) {
 // warnIfError displays a standardized warning message if an error occurred.
 func warnIfError(err error) {
 	if err != nil {
-		yellow := color.New(color.FgYellow, color.Bold).SprintFunc()
-		fmt.Println(yellow("WARN:"), err)
+		warn(err.Error())
 	}
 }
 
-// outputError outputs a standardized error message to the stderr stream.
-func outputError(s string) {
-	red := color.New(color.FgRed, color.Bold).SprintFunc()
-	os.Stderr.WriteString(fmt.Sprint(red("FAIL: "), s, "\n"))
+func warn(s string) {
+	yellow := color.New(color.FgYellow, color.Bold).SprintFunc()
+	os.Stderr.WriteString(fmt.Sprint(yellow("WARN: "), s, "\n"))
 }
 
 // failIfError exits the program with a standardized error message if an error occurred.
 func failIfError(err error) {
 	if err != nil {
-		outputError(err.Error())
+		red := color.New(color.FgRed, color.Bold).SprintFunc()
+		os.Stderr.WriteString(fmt.Sprint(red("FAIL: "), err, "\n"))
 		os.Exit(1)
 	}
 }
@@ -77,7 +76,7 @@ func executeAndStream(name string, arg ...string) error {
 	}
 	scanner = bufio.NewScanner(stderr)
 	for scanner.Scan() {
-		outputError(scanner.Text())
+		warn(scanner.Text())
 	}
 
 	return c.Wait()

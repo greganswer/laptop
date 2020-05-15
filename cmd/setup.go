@@ -110,7 +110,12 @@ func installRuby() {
 	title(fmt.Sprintf("Installing Ruby %s...", rubyVersion))
 	err := executeAndStream("rbenv", "install", rubyVersion)
 	warnIfError(err)
+
 	err = executeAndStream("rbenv", "global", rubyVersion)
 	failIfError(err)
+
+	err = executeAndStream("gem", "install", "bundler")
+	failIfError(err)
+
 	finished()
 }

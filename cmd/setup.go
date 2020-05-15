@@ -8,6 +8,7 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -16,7 +17,7 @@ import (
 )
 
 var (
-	brewfilePath, homeDir string
+	brewfilePath, homeDir, laptopRepoPath string
 )
 
 var setupCmd = &cobra.Command{
@@ -28,6 +29,7 @@ and usage of using your command.`,
 		makeDirectories()
 		downloadBrewfileToHomeDirectory()
 		executeBrewBundle()
+		symlinkDotfiles()
 	},
 }
 
@@ -37,33 +39,52 @@ func init() {
 	homeDir, err = os.UserHomeDir()
 	failIfError(err)
 	brewfilePath = path.Join(homeDir, "Brewfile")
+	laptopRepoPath = path.Join(homeDir, "go", "src", "github.com", "greganswer", "laptop")
 
 	// Cobra CLI setup code.
 	rootCmd.AddCommand(setupCmd)
 }
 
 func makeDirectories() {
-	fmt.Println("Creating directories...")
+	title("Creating directories...")
 	paths := []string{
 		filepath.Join(homeDir, "go", "src"),
 		filepath.Join(homeDir, "go", "bin"),
 	}
 	for _, p := range paths {
+		fmt.Println(p)
 		os.MkdirAll(p, os.ModePerm)
 	}
 	finished()
 }
 
+func downloadBrewfileToHomeDirectory() {
+	title("Downloading Brewfile to home directory...")
+	brewfileURL := "https://bit.ly/2xUtgmK"
+	err := downloadFile(brewfileURL, brewfilePath)
+	failOrOK(err)
+}
+
 func executeBrewBundle() {
-	fmt.Println("Executing brew bundle...")
+	title("Executing brew bundle...")
 	err := executeAndStream("brew", "bundle", "--file", brewfilePath)
 	failIfError(err)
 	finished()
 }
 
-func downloadBrewfileToHomeDirectory() {
-	fmt.Println("Downloading Brewfile to home directory...")
-	brewfileURL := "https://bit.ly/2xUtgmK"
-	err := downloadFile(brewfileURL, brewfilePath)
-	failOrOK(err)
+func symlinkDotfiles() {
+	title("Symlinking dotfiles...")
+	dotfilesPath := filepath.Join(laptopRepoPath, "dotfiles")
+	files, err := ioutil.ReadDir(dotfilesPath)
+	failIfError(err)
+
+	for _, f := range files {
+		fmt.Printf("Symlinking .%s\n", f.Name())
+		source := filepath.Join(dotfilesPath, f.Name())
+		destination := filepath.Join(homeDir, fmt.Sprintf(".%s", f.Name()))
+		os.Remove(destination)
+		err := os.Symlink(source, destination)
+		failIfError(err)
+	}
+	finished()
 }

@@ -11,6 +11,11 @@ import (
 	"github.com/fatih/color"
 )
 
+func title(s string) {
+	c := color.New(color.FgMagenta, color.Bold)
+	c.Println(s)
+}
+
 // failIfError exits the program with a standardized error message if an error occurred.
 func failIfError(err error) {
 	if err != nil {

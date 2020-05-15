@@ -32,6 +32,7 @@ and usage of using your command.`,
 		symlinkDotfiles()
 		setupZShell()
 		installRuby()
+		configureVim()
 	},
 }
 
@@ -117,5 +118,12 @@ func installRuby() {
 	err = executeAndStream("gem", "install", "bundler")
 	failIfError(err)
 
+	finished()
+}
+
+func configureVim() {
+	title("Configure VIM...")
+	err := executeAndStream("git", "clone", "https://github.com/VundleVim/Vundle.vim.git", "~/.vim/bundle/Vundle.vim")
+	warnIfError(err)
 	finished()
 }

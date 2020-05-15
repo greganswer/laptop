@@ -24,11 +24,16 @@ func warnIfError(err error) {
 	}
 }
 
+// outputError outputs a standardized error message to the stderr stream.
+func outputError(s string) {
+	red := color.New(color.FgRed, color.Bold).SprintFunc()
+	os.Stderr.WriteString(fmt.Sprint(red("FAIL: "), s, "\n"))
+}
+
 // failIfError exits the program with a standardized error message if an error occurred.
 func failIfError(err error) {
 	if err != nil {
-		red := color.New(color.FgRed, color.Bold).SprintFunc()
-		fmt.Println(red("FAIL:"), err)
+		outputError(err.Error())
 		os.Exit(1)
 	}
 }
@@ -72,7 +77,7 @@ func executeAndStream(name string, arg ...string) error {
 	}
 	scanner = bufio.NewScanner(stderr)
 	for scanner.Scan() {
-		fmt.Println(scanner.Text())
+		outputError(scanner.Text())
 	}
 
 	return c.Wait()

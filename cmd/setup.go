@@ -95,7 +95,7 @@ func symlinkDotfiles() {
 func setupZShell() {
 	title("Setting up zShell...")
 	err := executeAndStream("git", "clone", "git://github.com/robbyrussell/oh-my-zsh.git", zshellPath)
-	warnIfError(err)
+	failIfError(err)
 	finished()
 }
 

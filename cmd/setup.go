@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	brewfilePath, homeDir, laptopRepoPath string
+	brewfilePath, homeDir, laptopRepoPath, zshellPath string
 )
 
 var setupCmd = &cobra.Command{
@@ -30,6 +30,7 @@ and usage of using your command.`,
 		downloadBrewfileToHomeDirectory()
 		executeBrewBundle()
 		symlinkDotfiles()
+		setupZShell()
 	},
 }
 
@@ -38,8 +39,10 @@ func init() {
 	var err error
 	homeDir, err = os.UserHomeDir()
 	failIfError(err)
+
 	brewfilePath = path.Join(homeDir, "Brewfile")
 	laptopRepoPath = path.Join(homeDir, "go", "src", "github.com", "greganswer", "laptop")
+	zshellPath = path.Join(homeDir, ".oh-my-zsh")
 
 	// Cobra CLI setup code.
 	rootCmd.AddCommand(setupCmd)
@@ -88,3 +91,12 @@ func symlinkDotfiles() {
 	}
 	finished()
 }
+
+func setupZShell() {
+	title("Setting up zShell...")
+	err := executeAndStream("git", "clone", "git://github.com/robbyrussell/oh-my-zsh.git", zshellPath)
+	warnIfError(err)
+	finished()
+}
+
+// git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh

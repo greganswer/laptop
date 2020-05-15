@@ -16,6 +16,14 @@ func title(s string) {
 	c.Println(s)
 }
 
+// warnIfError displays a standardized warning message if an error occurred.
+func warnIfError(err error) {
+	if err != nil {
+		yellow := color.New(color.FgYellow, color.Bold).SprintFunc()
+		fmt.Println(yellow("WARN:"), err)
+	}
+}
+
 // failIfError exits the program with a standardized error message if an error occurred.
 func failIfError(err error) {
 	if err != nil {
@@ -41,17 +49,32 @@ func finished() {
 // Reference: https://stackoverflow.com/a/45957859
 func executeAndStream(name string, arg ...string) error {
 	c := exec.Command(name, arg...)
+
+	// Setup stdout and stderr.
 	stdout, err := c.StdoutPipe()
 	if err != nil {
 		return err
 	}
+	stderr, err := c.StderrPipe()
+	if err != nil {
+		return err
+	}
+
+	// Start the command.
 	if err := c.Start(); err != nil {
 		return err
 	}
+
+	// Stream stdout and stderr.
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
 		fmt.Println(scanner.Text())
 	}
+	scanner = bufio.NewScanner(stderr)
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+
 	return c.Wait()
 }
 

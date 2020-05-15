@@ -31,6 +31,7 @@ and usage of using your command.`,
 		executeBrewBundle()
 		symlinkDotfiles()
 		setupZShell()
+		installRuby()
 	},
 }
 
@@ -97,11 +98,19 @@ func setupZShell() {
 	err := executeAndStream("git", "clone", "git://github.com/robbyrussell/oh-my-zsh.git", zshellPath)
 	warnIfError(err)
 	err = executeAndStream("chsh", "-s", "/bin/zsh")
-	failIfError(err)
+	warnIfError(err)
 	err = executeAndStream("zsh", "--version")
-	failIfError(err)
+	warnIfError(err)
 
 	finished()
 }
 
-// git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+func installRuby() {
+	rubyVersion := "2.6.0"
+	title(fmt.Sprintf("Installing Ruby %s...", rubyVersion))
+	err := executeAndStream("rbenv", "install", rubyVersion)
+	warnIfError(err)
+	err = executeAndStream("rbenv", "global", rubyVersion)
+	failIfError(err)
+	finished()
+}

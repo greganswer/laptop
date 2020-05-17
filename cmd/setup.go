@@ -33,6 +33,7 @@ and usage of using your command.`,
 		setupZShell()
 		installRuby()
 		configureVim()
+		configureVSCode()
 	},
 }
 
@@ -63,6 +64,7 @@ func makeDirectories() {
 	finished()
 }
 
+// Reference: https://brew.sh/
 func downloadBrewfileToHomeDirectory() {
 	title("Downloading Brewfile to home directory...")
 	brewfileURL := "https://bit.ly/2xUtgmK"
@@ -70,6 +72,7 @@ func downloadBrewfileToHomeDirectory() {
 	failOrOK(err)
 }
 
+// Reference: https://github.com/Homebrew/homebrew-bundle
 func executeBrewBundle() {
 	title("Executing brew bundle...")
 	err := executeAndStream("brew", "bundle", "--file", brewfilePath)
@@ -94,12 +97,15 @@ func symlinkDotfiles() {
 	finished()
 }
 
+// Reference: https://github.com/ohmyzsh/ohmyzsh
 func setupZShell() {
 	title("Setting up zShell...")
 	err := executeAndStream("git", "clone", "git://github.com/robbyrussell/oh-my-zsh.git", zshellPath)
 	warnIfError(err)
+
 	err = executeAndStream("chsh", "-s", "/bin/zsh")
 	warnIfError(err)
+
 	err = executeAndStream("zsh", "--version")
 	warnIfError(err)
 
@@ -121,9 +127,24 @@ func installRuby() {
 	finished()
 }
 
+// Reference: https://github.com/VundleVim/Vundle.vim
 func configureVim() {
 	title("Configure VIM...")
 	err := executeAndStream("git", "clone", "https://github.com/VundleVim/Vundle.vim.git", "~/.vim/bundle/Vundle.vim")
 	warnIfError(err)
+
+	err = executeAndStream("vim", "+PluginInstall", "+qall")
+	warnIfError(err)
+
+	finished()
+}
+
+func configureVSCode() {
+	title("Configure VS Code...")
+	source := filepath.Join(laptopRepoPath, "settings", "vscode.json")
+	destination := filepath.Join(homeDir, "Library", "Application Support", "Code", "User", "settings.json")
+	os.Remove(destination)
+	err := os.Symlink(source, destination)
+	failIfError(err)
 	finished()
 }

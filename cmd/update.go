@@ -13,6 +13,7 @@ var updateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		downloadBrewfileToHomeDirectory()
 		updateBrews()
+		updateZShell()
 	},
 }
 
@@ -30,5 +31,13 @@ func updateBrews() {
 		failIfError(err)
 	}
 	fmt.Println(string(out))
+	finished()
+}
+
+// Reference: https://github.com/ohmyzsh/ohmyzsh
+func updateZShell() {
+	title("Updating zShell...")
+	err := executeAndStream("git", "-C", zshellPath, "pull", "--rebase", "--stat", "origin", "master")
+	warnIfError(err)
 	finished()
 }

@@ -15,7 +15,7 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:     "laptop",
-	Version: version,
+	Version: "0.1.0",
 	Short:   "Laptop setup and update script for Mac users",
 	Long: `Setup the following on your new Mac:
 

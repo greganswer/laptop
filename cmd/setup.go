@@ -24,9 +24,7 @@ var (
 
 var setupCmd = &cobra.Command{
 	Use:   "setup",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command.`,
+	Short: "Setup the laptop for Software Development",
 	Run: func(cmd *cobra.Command, args []string) {
 		makeDirectories()
 		downloadBrewfileToHomeDirectory()

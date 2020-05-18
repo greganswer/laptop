@@ -43,9 +43,6 @@ func updateZShell() {
 	title("Updating zShell...")
 	err := executeAndStream("git", "-C", zshellPath, "pull", "--rebase", "--stat", "origin", "master")
 	warnIfError(err)
-
-	err = executeAndStream("git", "-C", zshellPath, "push")
-	warnIfError(err)
 	finished()
 }
 

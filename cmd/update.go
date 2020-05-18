@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os/exec"
+	"time"
 
 	"github.com/spf13/cobra"
 )
@@ -11,6 +12,7 @@ var updateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Update laptop dependencies",
 	Run: func(cmd *cobra.Command, args []string) {
+		defer outputScriptDuration(time.Now())
 		downloadBrewfileToHomeDirectory()
 		updateBrews()
 		updateZShell()

@@ -13,6 +13,7 @@ import (
 	"os/user"
 	"path"
 	"path/filepath"
+	"time"
 
 	"github.com/spf13/cobra"
 )
@@ -35,6 +36,7 @@ var setupCmd = &cobra.Command{
     - Settings for your apps
 `,
 	Run: func(cmd *cobra.Command, args []string) {
+		defer outputScriptDuration(time.Now())
 		makeDirectories()
 		downloadBrewfileToHomeDirectory()
 		executeBrewBundle()

@@ -7,9 +7,28 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"time"
 
 	"github.com/fatih/color"
 )
+
+func outputScriptDuration(start time.Time) {
+	end := time.Now()
+	green := color.New(color.FgGreen, color.Bold).SprintFunc()
+	fmt.Println(green("DONE: "), fmtDuration(end.Sub(start)))
+}
+
+// Reference: https://stackoverflow.com/a/47342272
+func fmtDuration(d time.Duration) string {
+	d = d.Round(time.Second)
+	h := d / time.Hour
+	d -= h * time.Hour
+	m := d / time.Minute
+	d -= m * time.Minute
+	s := d / time.Second
+
+	return fmt.Sprintf("%01dh:%02dm:%02ds", h, m, s)
+}
 
 func title(s string) {
 	c := color.New(color.FgMagenta, color.Bold)

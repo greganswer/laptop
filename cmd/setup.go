@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/user"
 	"path"
 	"path/filepath"
 
@@ -17,7 +18,8 @@ import (
 )
 
 var (
-	brewfilePath, homeDir, laptopRepoPath, zshellPath string
+	brewfilePath, laptopRepoPath, zshellPath string
+	currentUser                              *user.User
 )
 
 var setupCmd = &cobra.Command{
@@ -34,18 +36,19 @@ and usage of using your command.`,
 		installRuby()
 		configureVim()
 		configureVSCode()
+		setupLocalDatabases()
 	},
 }
 
 func init() {
 	// Set package variables.
 	var err error
-	homeDir, err = os.UserHomeDir()
+	currentUser, err = user.Current()
 	failIfError(err)
 
-	brewfilePath = path.Join(homeDir, "Brewfile")
-	laptopRepoPath = path.Join(homeDir, "go", "src", "github.com", "greganswer", "laptop")
-	zshellPath = path.Join(homeDir, ".oh-my-zsh")
+	brewfilePath = path.Join(currentUser.HomeDir, "Brewfile")
+	laptopRepoPath = path.Join(currentUser.HomeDir, "go", "src", "github.com", "greganswer", "laptop")
+	zshellPath = path.Join(currentUser.HomeDir, ".oh-my-zsh")
 
 	// Cobra CLI setup code.
 	rootCmd.AddCommand(setupCmd)
@@ -54,8 +57,8 @@ func init() {
 func makeDirectories() {
 	title("Creating directories...")
 	paths := []string{
-		filepath.Join(homeDir, "go", "src"),
-		filepath.Join(homeDir, "go", "bin"),
+		filepath.Join(currentUser.HomeDir, "go", "src"),
+		filepath.Join(currentUser.HomeDir, "go", "bin"),
 	}
 	for _, p := range paths {
 		fmt.Println(p)
@@ -89,7 +92,7 @@ func symlinkDotfiles() {
 	for _, f := range files {
 		fmt.Printf("Symlinking .%s\n", f.Name())
 		source := filepath.Join(dotfilesPath, f.Name())
-		destination := filepath.Join(homeDir, fmt.Sprintf(".%s", f.Name()))
+		destination := filepath.Join(currentUser.HomeDir, fmt.Sprintf(".%s", f.Name()))
 		os.Remove(destination)
 		err := os.Symlink(source, destination)
 		failIfError(err)
@@ -142,9 +145,20 @@ func configureVim() {
 func configureVSCode() {
 	title("Configure VS Code...")
 	source := filepath.Join(laptopRepoPath, "settings", "vscode.json")
-	destination := filepath.Join(homeDir, "Library", "Application Support", "Code", "User", "settings.json")
+	destination := filepath.Join(currentUser.HomeDir, "Library", "Application Support", "Code", "User", "settings.json")
 	os.Remove(destination)
 	err := os.Symlink(source, destination)
 	failIfError(err)
+	finished()
+}
+
+func setupLocalDatabases() {
+	title("Setup local databases...")
+	err := executeAndStream("brew", "services", "start", "postgresql")
+	failIfError(err)
+
+	err = executeAndStream("createdb", currentUser.Username)
+	warnIfError(err)
+
 	finished()
 }

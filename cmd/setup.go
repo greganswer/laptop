@@ -40,6 +40,11 @@ var setupCmd = &cobra.Command{
 		makeDirectories()
 		downloadBrewfileToHomeDirectory()
 		executeBrewBundle()
+		cloneLaptopRepo()
+
+		// NOTE: Laptop repo must be cloned in order for the rest of the setup to work.
+		// TODO: Find a way to extract these files to a separate repo
+		// Reference: https://github.com/greganswer/laptop/issues/10
 		symlinkDotfiles()
 		setupZShell()
 		installRuby()
@@ -88,6 +93,13 @@ func downloadBrewfileToHomeDirectory() {
 func executeBrewBundle() {
 	title("Executing brew bundle...")
 	err := executeAndStream("brew", "bundle", "--file", brewfilePath)
+	failIfError(err)
+	finished()
+}
+
+func cloneLaptopRepo() {
+	title("Cloning laptop repo...")
+	err := executeAndStream("go", "get", "github.com/greganswer/laptop")
 	failIfError(err)
 	finished()
 }

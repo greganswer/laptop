@@ -77,7 +77,7 @@ func makeDirectories() {
 // Reference: https://brew.sh/
 func downloadBrewfileToHomeDirectory() {
 	title("Downloading Brewfile to home directory...")
-	brewfileURL := "https://bit.ly/2xUtgmK"
+	brewfileURL := "https://gist.githubusercontent.com/greganswer/fc93b73085b171780d8c0cfd90e6ed25/raw"
 	err := downloadFile(brewfileURL, brewfilePath)
 	failOrOK(err)
 }

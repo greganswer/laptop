@@ -17,14 +17,8 @@ var rootCmd = &cobra.Command{
 	Use:     "laptop",
 	Version: "0.1.0",
 	Short:   "Laptop setup and update script for Mac users",
-	Long: `Setup the following on your new Mac:
-
-    - HomeBrew
-    - Dot files
-    - Native apps (Chrome, Spotify, Vs Code, etc.)
-    - CLI apps (Git, Hub, Docker-compose, etc.)
-    - Local Databases (Postgres, Redis, etc.)
-    - Settings for your apps
+	Long: `Setup software development dependencies like 
+settings, databases, dot files, and apps (CLI & native)
 `,
 }
 

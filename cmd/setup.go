@@ -25,6 +25,15 @@ var (
 var setupCmd = &cobra.Command{
 	Use:   "setup",
 	Short: "Setup the laptop for Software Development",
+	Long: `Setup the following on your new Mac:
+
+    - HomeBrew
+    - Dot files
+    - Native apps (Chrome, Spotify, Vs Code, etc.)
+    - CLI apps (Git, Hub, Docker-compose, etc.)
+    - Local Databases (Postgres, Redis, etc.)
+    - Settings for your apps
+`,
 	Run: func(cmd *cobra.Command, args []string) {
 		makeDirectories()
 		downloadBrewfileToHomeDirectory()

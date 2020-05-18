@@ -23,8 +23,9 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 #
 # Go setup
 #
-export GOPATH="$HOME/go"
-export PATH="$PATH:$GOPATH/bin"
+# NOTE: Apparently this is no longer needed...
+#export GOPATH="$HOME/go"
+#export PATH="$PATH:$GOPATH/bin"
 
 #
 # Setup for Python Virtual Environments

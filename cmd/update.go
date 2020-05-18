@@ -49,10 +49,10 @@ func updateZShell() {
 func pushRepoChanges() {
 	title("Pushing changes to laptop origin...")
 	gitDir := path.Join(laptopRepoPath, ".git")
-	err := executeAndStream("git", "--git-dir", gitDir, "commit", "-am", "'Update laptop settings'")
+	err := executeAndStream("git", "-C", gitDir, "commit", "-am", "'Update laptop settings'")
 	failIfError(err)
 
-	err = executeAndStream("git", "--git-dir", gitDir, "push")
+	err = executeAndStream("git", "-C", gitDir, "push")
 	failIfError(err)
 
 	finished()

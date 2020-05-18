@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os/exec"
+	"path"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -16,6 +17,7 @@ var updateCmd = &cobra.Command{
 		downloadBrewfileToHomeDirectory()
 		updateBrews()
 		updateZShell()
+		pushRepoChanges()
 	},
 }
 
@@ -41,5 +43,20 @@ func updateZShell() {
 	title("Updating zShell...")
 	err := executeAndStream("git", "-C", zshellPath, "pull", "--rebase", "--stat", "origin", "master")
 	warnIfError(err)
+
+	err = executeAndStream("git", "-C", zshellPath, "push")
+	warnIfError(err)
+	finished()
+}
+
+func pushRepoChanges() {
+	title("Pushing changes to laptop origin...")
+	gitDir := path.Join(laptopRepoPath, ".git")
+	err := executeAndStream("git", "--git-dir", gitDir, "commit", "-am", "'Update laptop settings'")
+	failIfError(err)
+
+	err = executeAndStream("git", "--git-dir", gitDir, "push")
+	failIfError(err)
+
 	finished()
 }

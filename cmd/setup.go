@@ -10,17 +10,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"os/user"
-	"path"
 	"path/filepath"
 	"time"
 
 	"github.com/spf13/cobra"
-)
-
-var (
-	brewfilePath, laptopRepoPath, zshellPath string
-	currentUser                              *user.User
 )
 
 var setupCmd = &cobra.Command{
@@ -55,16 +48,6 @@ var setupCmd = &cobra.Command{
 }
 
 func init() {
-	// Set package variables.
-	var err error
-	currentUser, err = user.Current()
-	failIfError(err)
-
-	brewfilePath = path.Join(currentUser.HomeDir, "Brewfile")
-	laptopRepoPath = path.Join(currentUser.HomeDir, "go", "src", "github.com", "greganswer", "laptop")
-	zshellPath = path.Join(currentUser.HomeDir, ".oh-my-zsh")
-
-	// Cobra CLI setup code.
 	rootCmd.AddCommand(setupCmd)
 }
 

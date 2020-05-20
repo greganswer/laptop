@@ -2,15 +2,21 @@ package cmd
 
 import (
 	"fmt"
-	"os"
+	"os/user"
+	"path"
 
 	"github.com/spf13/cobra"
 
-	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+var (
+	brewfilePath   string
+	cfgFile        string
+	currentUser    *user.User
+	laptopRepoPath string
+	zshellPath     string
+)
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -25,24 +31,22 @@ settings, databases, dot files, and apps (CLI & native)
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	failIfError(rootCmd.Execute())
 }
 
 func init() {
+	// Set package variables.
+	var err error
+	currentUser, err = user.Current()
+	failIfError(err)
+
+	brewfilePath = path.Join(currentUser.HomeDir, "Brewfile")
+	laptopRepoPath = path.Join(currentUser.HomeDir, "go", "src", "github.com", "greganswer", "laptop")
+	zshellPath = path.Join(currentUser.HomeDir, ".oh-my-zsh")
+
+	// Cobra configs.
 	cobra.OnInitialize(initConfig)
-
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.laptop.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -51,15 +55,8 @@ func initConfig() {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
 	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-
 		// Search config in home directory with name ".laptop" (without extension).
-		viper.AddConfigPath(home)
+		viper.AddConfigPath(currentUser.HomeDir)
 		viper.SetConfigName(".laptop")
 	}
 

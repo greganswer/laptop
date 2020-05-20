@@ -21,7 +21,7 @@ var (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:     "laptop",
-	Version: "0.3.0",
+	Version: "0.3.1",
 	Short:   "Laptop setup and update script for Mac users",
 	Long: `Setup software development dependencies like 
 settings, databases, dot files, and apps (CLI & native)

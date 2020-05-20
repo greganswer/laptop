@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"os/exec"
-	"path"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -48,11 +47,10 @@ func updateZShell() {
 
 func pushRepoChanges() {
 	title("Pushing changes to laptop origin...")
-	gitDir := path.Join(laptopRepoPath, ".git")
-	err := executeAndStream("git", "-C", gitDir, "commit", "-am", "'Update laptop settings'")
+	err := executeAndStream("git", "-C", laptopRepoPath, "commit", "-am", "'Update laptop settings'")
 	failIfError(err)
 
-	err = executeAndStream("git", "-C", gitDir, "push")
+	err = executeAndStream("git", "-C", laptopRepoPath, "push")
 	failIfError(err)
 
 	finished()

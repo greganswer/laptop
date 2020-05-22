@@ -10,10 +10,12 @@ import (
 	"github.com/spf13/viper"
 )
 
+var cfgFile string
+var currentUser *user.User
+
+// File paths.
 var (
 	brewfilePath   string
-	cfgFile        string
-	currentUser    *user.User
 	laptopRepoPath string
 	zshellPath     string
 )

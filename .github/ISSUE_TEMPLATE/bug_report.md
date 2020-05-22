@@ -7,26 +7,26 @@ assignees: ''
 
 ---
 
-### Describe the bug
+## Describe the bug
 _A clear and concise description of what the bug is._
 
-### Step to Reproduce
+## Step to Reproduce
 _Steps to reproduce the behavior:_
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-### Expected behavior
+## Expected behavior
 _A clear and concise description of what you expected to happen._
 
-### Actual behavior
+## Actual behavior
 _A clear and concise description of what actually happened._
 
-### Screenshots
+## Screenshots
 _If applicable, add screenshots to help explain your problem._
 
-### Technical information
+## Technical information
 _Please complete the following information (if applicable):_
 - OS and version: _[e.g. Mac OS Mojave 10.14.6]_
 - Browser and version: _[e.g. Chrome v. 76]_
@@ -36,5 +36,5 @@ _Please complete the following information (if applicable):_
     - Python 3.7
     - etc.
 
-### Additional context
+## Additional context
 _Add any other context about the problem here._

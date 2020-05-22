@@ -19,18 +19,18 @@ Feature:
     Then
 ```
 
-### Describe the feature or problem you’d like to solve
+## Describe the feature or problem you’d like to solve
 
 A clear and concise description of what the feature or problem is.
 
-### Proposed solution
+## Proposed solution
 
 How will it benefit this app and its users?
 
-### Additional context
+## Additional context
 
 Add any other context like screenshots or mockups are helpful, if applicable.
 
-### Resources
+## Resources
 
 1.

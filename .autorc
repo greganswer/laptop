@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "git-tag",
+    "conventional-commits",
+    "first-time-contributor",
+    "released"
+  ],
+  "owner": "greganswer",
+  "repo": "laptop",
+  "name": "Greg Answer",
+  "email": "greganswer@gmail.com",
+  "onlyPublishWithReleaseLabel": true
+}

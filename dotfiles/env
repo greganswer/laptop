@@ -26,8 +26,7 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 #
 # Go setup
 #
-# NOTE: Apparently this is no longer needed...
-#export GOPATH="$HOME/go"
+export GOPATH="$HOME/go"
 export PATH="$PATH:$HOME/go/bin"
 
 #

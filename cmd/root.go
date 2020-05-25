@@ -15,9 +15,9 @@ var currentUser *user.User
 
 // File paths.
 var (
-	brewfilePath   string
-	laptopRepoPath string
-	zshellPath     string
+	brewfilePath   = path.Join(currentUser.HomeDir, "Brewfile")
+	laptopRepoPath = path.Join(currentUser.HomeDir, "go", "src", "github.com", "greganswer", "laptop")
+	zshellPath     = path.Join(currentUser.HomeDir, ".oh-my-zsh")
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -41,10 +41,6 @@ func init() {
 	var err error
 	currentUser, err = user.Current()
 	failIfError(err)
-
-	brewfilePath = path.Join(currentUser.HomeDir, "Brewfile")
-	laptopRepoPath = path.Join(currentUser.HomeDir, "go", "src", "github.com", "greganswer", "laptop")
-	zshellPath = path.Join(currentUser.HomeDir, ".oh-my-zsh")
 
 	// Cobra configs.
 	cobra.OnInitialize(initConfig)

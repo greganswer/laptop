@@ -1,3 +1,7 @@
+# If a pattern for filename generation has no matches, print an error,
+# instead of leaving it unchanged in the argument list
+unsetopt nomatch
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 

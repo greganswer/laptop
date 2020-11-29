@@ -10,7 +10,7 @@
 # end
 
 require 'logger'
-include FactoryGirl::Syntax::Methods
+include FactoryBot::Syntax::Methods
 
 def loud_logger
   enable_hirb

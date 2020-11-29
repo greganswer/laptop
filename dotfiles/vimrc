@@ -14,8 +14,14 @@ Plugin 'VundleVim/Vundle.vim'
 " Add plugins here
 " -------------------------------------
 
+" Theme
+Plugin 'mhartington/oceanic-next'
+
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
 Plugin 'ctrlpvim/ctrlp.vim' " https://github.com/ctrlpvim/ctrlp.vim
+
+" Git plugin
+Plugin 'tpope/vim-fugitive'
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
 let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
@@ -23,6 +29,9 @@ let g:ctrlp_use_caching = 0
 
 " Extend Vim's command language to add new "verbs" for operating on surroundings like braces
 Plugin 'tpope/vim-surround' " https://github.com/tpope/vim-surround
+
+" Syntax error highlighting
+Plugin 'vim-syntastic/syntastic'
 
 " Allow plugins to hook into the . repeat command
 Plugin 'tpope/vim-repeat' " https://github.com/tpope/vim-repeat
@@ -36,6 +45,10 @@ Plugin 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
 " JavaScript plugins
 Plugin 'pangloss/vim-javascript'
 Plugin 'maxmellon/vim-jsx-pretty'
+
+" Ruby plugins
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rails'
 
 " -------------------------------------
 " End of plugins
@@ -57,6 +70,12 @@ filetype plugin indent on    " required
 " ==============================================================================
 " Non-plugin stuff after this line
 " ==============================================================================
+
+if (has("termguicolors"))
+  set termguicolors
+ endif
+
+colorscheme OceanicNext
 
 " use the space key as our leader. put this near the top of your vimrc
 let mapleader = "\<space>"
@@ -127,8 +146,9 @@ set smartcase  " search case sensitive only if there is a capital letter in the 
 " misc
 set backspace=2   " backspace deletes like most programs in insert mode
 set history=100
-set spell spelllang=en_us
+" set spell spelllang=en_us
 set complete+=kspell
+set clipboard=unnamed
 
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
 au CursorHoldI * stopinsert
@@ -141,6 +161,8 @@ imap <c-a> <esc>:w<cr>
 
 " bind `q` to close the buffer for help files
 autocmd filetype help nnoremap <buffer> q :q<cr>
+
+autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " move up and down by visible lines if current line is wrapped
 nmap j gj

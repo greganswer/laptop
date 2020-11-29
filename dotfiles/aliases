@@ -7,6 +7,11 @@ alias updateshell='source $ZSH/oh-my-zsh.sh'
 alias edit='code'
 alias sshaddkey='ssh-add ~/.ssh/id_rsa'
 alias malias='edit ~/.oh-my-zsh/custom/aliases.zsh'
+# alias curlj='curl --header "Content-Type: application/json"'
+curlj() {
+  ARGS=$1
+  curl --header "Content-Type: application/json" $ARGS | jq
+}
 
 #
 # Docker
@@ -106,10 +111,11 @@ porthog() {
 
 freeport() {
   PORT=$1
-  PID=`lsof -ti tcp:$PORT`
-  if [ -z "$PID" ]; then
-    echo "No process running on port $PORT"
-  else
-    kill -KILL $PID
-  fi
+  `lsof -ti tcp:$PORT` | xargs kill
+  # PID=`lsof -ti tcp:$PORT`
+  # if [ -z "$PID" ]; then
+  #  echo "No process running on port $PORT"
+  # else
+  #   kill -KILL $PID
+  # fi
 }

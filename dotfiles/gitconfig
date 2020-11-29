@@ -5,7 +5,7 @@
 [core]
 	editor = vim
 	autocrlf = input
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/greganswer/.gitignore
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

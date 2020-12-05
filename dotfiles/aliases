@@ -10,7 +10,7 @@ alias malias='edit ~/.oh-my-zsh/custom/aliases.zsh'
 # alias curlj='curl --header "Content-Type: application/json"'
 curlj() {
   ARGS=$1
-  curl --header "Content-Type: application/json" $ARGS | jq
+    curl --header "Content-Type: application/json" $ARGS | jq
 }
 
 #
@@ -26,14 +26,14 @@ alias dps='docker ps -a --format "table {{.Names}}\\t{{.Image}}\\t{{.RunningFor}
 
 # Kill and remove all Docker containers and images.
 function dockerkillandremoveall(){
-    docker rm -f $(docker ps -a -q)
+  docker rm -f $(docker ps -a -q)
     docker rmi -f $(docker images -q)
     osascript -e 'display notification \"Removed all containers and images.\" with title \"Docker\"'
 }
 
 # Docker-compose up --detach with notification of length of time it takes to run.
 function dcup(){
-    T="$(date +%s)"
+  T="$(date +%s)"
     dc up -d
     ELAPSED_TIME="$(($(date +%s)-T))"
     DURATION="$(($ELAPSED_TIME/60)) min $(($ELAPSED_TIME%60)) sec"
@@ -43,17 +43,17 @@ function dcup(){
 
 # Docker-compose build (with arguments if provided).
 function dcbuild(){
-    rm -rf tmp/pids
+  rm -rf tmp/pids
     T="$(date +%s)"
     if [ "$1" ]; then
-        dc build --force-rm $1
+      dc build --force-rm $1
     else
-        dc build --force-rm
-    fi
-    ELAPSED_TIME="$(($(date +%s)-T))"
-    DURATION="$(($ELAPSED_TIME/60)) min $(($ELAPSED_TIME%60)) sec"
-    echo "\n\nELAPSED_TIME = ${DURATION}"
-    osascript -e "display notification \"Build completed in ${DURATION}.\" with title \"Docker\""
+      dc build --force-rm
+        fi
+        ELAPSED_TIME="$(($(date +%s)-T))"
+        DURATION="$(($ELAPSED_TIME/60)) min $(($ELAPSED_TIME%60)) sec"
+        echo "\n\nELAPSED_TIME = ${DURATION}"
+        osascript -e "display notification \"Build completed in ${DURATION}.\" with title \"Docker\""
 }
 
 # Docker-compose exec bash (with arguments if provided).
@@ -62,60 +62,65 @@ function dcbuild(){
 #   $ dcexec db
 #   $ dcexec db psql -U postgres
 function dcexec(){
-    if [ "$2" ]; then
-        dc exec $1 ${@:2}
-    else
-        dc exec $1 bash
-    fi
+  if [ "$2" ]; then
+    dc exec $1 ${@:2}
+  else
+    dc exec $1 bash
+      fi
 }
 
 # Reinstall Docker for Mac
 #
 # NOTE: This is not used too frequently
 function dockerreinstall(){
-    read "response?Are you sure you want to reinstall the Docker app?  [Y/n] "
+  read "response?Are you sure you want to reinstall the Docker app?  [Y/n] "
     response=${response:l} # tolower
     if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
-        brew cask uninstall docker && \
-            echo "\nDeleting related files..." && \
-            sudo rm -Rf /Applications/Docker; \
-            sudo rm -f /usr/local/bin/docker; \
-            sudo rm -f /usr/local/bin/docker-machine; \
-            sudo rm -f /usr/local/bin/docker-compose; \
-            sudo rm -f /usr/local/bin/docker-credential-osxkeychain; \
-            sudo rm -Rf ~/.docker; \
-            sudo rm -Rf $HOME/Library/Containers/com.docker.*; \
-            echo "Related files deleted.\n"; \
-            brew tap caskroom/cask
-            brew cask install docker && \
-            open /Applications/Docker.app
+      brew cask uninstall docker && \
+        echo "\nDeleting related files..." && \
+        sudo rm -Rf /Applications/Docker; \
+        sudo rm -f /usr/local/bin/docker; \
+        sudo rm -f /usr/local/bin/docker-machine; \
+        sudo rm -f /usr/local/bin/docker-compose; \
+        sudo rm -f /usr/local/bin/docker-credential-osxkeychain; \
+        sudo rm -Rf ~/.docker; \
+        sudo rm -Rf $HOME/Library/Containers/com.docker.*; \
+        echo "Related files deleted.\n"; \
+        brew tap caskroom/cask
+        brew cask install docker && \
+        open /Applications/Docker.app
     else
-        echo "Aborting..."
-    fi
+      echo "Aborting..."
+        fi
 }
 
 #
 # Git
 #
+alias gs='git status'
+alias gd='git diff'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gitdelete-local-branches='git branch | grep -v "develop" | grep -v "master" | xargs git branch -D'
 alias gitmaster-pull-and-fetch='git checkout master && git pull && git fetch && git checkout -'
 alias gitpull-and-fetch='git pull && git fetch'
-alias gitdelete-local-branches='git branch | grep -v "develop" | grep -v "master" | xargs git branch -D'
 
 #
 # Local Ports
 #
 porthog() {
   PORT=$1
-  echo `lsof -ti tcp:$PORT`
+    echo `lsof -ti tcp:$PORT`
 }
 
 freeport() {
   PORT=$1
-  `lsof -ti tcp:$PORT` | xargs kill
-  # PID=`lsof -ti tcp:$PORT`
-  # if [ -z "$PID" ]; then
-  #  echo "No process running on port $PORT"
-  # else
-  #   kill -KILL $PID
-  # fi
+    `lsof -ti tcp:$PORT` | xargs kill
+# PID=`lsof -ti tcp:$PORT`
+# if [ -z "$PID" ]; then
+#  echo "No process running on port $PORT"
+# else
+#   kill -KILL $PID
+# fi
 }

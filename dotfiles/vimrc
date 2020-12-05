@@ -1,12 +1,11 @@
+" TODO: https://github.com/jreybert/vimagit
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -15,7 +14,7 @@ Plugin 'VundleVim/Vundle.vim'
 " -------------------------------------
 
 " Theme
-Plugin 'mhartington/oceanic-next'
+Plugin 'joshdick/onedark.vim'
 
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
 Plugin 'ctrlpvim/ctrlp.vim' " https://github.com/ctrlpvim/ctrlp.vim
@@ -42,12 +41,14 @@ Plugin 'tpope/vim-commentary' " https://github.com/tpope/vim-commentary
 " Vim will draw a nice statusline at the bottom of each window
 Plugin 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
 
-" JavaScript plugins
-Plugin 'pangloss/vim-javascript'
-Plugin 'maxmellon/vim-jsx-pretty'
+" shows a git diff in the sign column
+Plugin 'airblade/vim-gitgutter'
 
-" Ruby plugins
-Plugin 'vim-ruby/vim-ruby'
+" Language plugins
+Plugin 'sheerun/vim-polyglot'
+Plugin 'Chiel92/vim-autoformat'
+au BufWrite * :Autoformat
+
 Plugin 'tpope/vim-rails'
 
 " -------------------------------------
@@ -75,7 +76,20 @@ if (has("termguicolors"))
   set termguicolors
  endif
 
-colorscheme OceanicNext
+" onedark.vim override: Don't set a background color when running in a terminal;
+" just use the terminal's background color
+" `gui` is the hex color code used in GUI mode/nvim true-color mode
+" `cterm` is the color code used in 256-color mode
+" `cterm16` is the color code used in 16-color mode
+if (has("autocmd") && !has("gui_running"))
+  augroup colorset
+    autocmd!
+    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
+  augroup END
+endif
+
+colorscheme onedark
 
 " use the space key as our leader. put this near the top of your vimrc
 let mapleader = "\<space>"
@@ -145,13 +159,16 @@ set smartcase  " search case sensitive only if there is a capital letter in the 
 
 " misc
 set backspace=2   " backspace deletes like most programs in insert mode
-set history=100
+set history=1000
 " set spell spelllang=en_us
 set complete+=kspell
 set clipboard=unnamed
+if !empty(&viminfo)
+  set viminfo^=!
+endif
 
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
-au CursorHoldI * stopinsert
+" au CursorHoldI * stopinsert
 
 " keybindings
 
@@ -163,6 +180,10 @@ imap <c-a> <esc>:w<cr>
 autocmd filetype help nnoremap <buffer> q :q<cr>
 
 autocmd Filetype gitcommit setlocal spell textwidth=72
+
+if has('autocmd')
+  filetype plugin indent on
+endif
 
 " move up and down by visible lines if current line is wrapped
 nmap j gj

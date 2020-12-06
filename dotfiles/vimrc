@@ -5,6 +5,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" use the space key as our leader. put this near the top of your vimrc
+let mapleader = "\<space>"
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -70,9 +73,6 @@ filetype plugin indent on    " required
 "
 " Colors
 "
-if (has("termguicolors"))
-  set termguicolors
-endif
 
 " onedark.vim override: Don't set a background color when running in a terminal;
 " just use the terminal's background color
@@ -88,9 +88,6 @@ if (has("autocmd") && !has("gui_running"))
 endif
 
 colorscheme onedark
-
-" use the space key as our leader. put this near the top of your vimrc
-let mapleader = "\<space>"
 
 " plugins
 runtime! macros/matchit.vim " % matches on html tags, if/else, do/end, etc.

@@ -9,24 +9,24 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" let Vundle manage Vundle, required
+" let Vundle manage Vundle. This must be first.
 Plugin 'VundleVim/Vundle.vim'
-
-" Add plugins here
-" -------------------------------------
-
-" Theme
 Plugin 'joshdick/onedark.vim'
-
-" Asychronous Vim processing
 Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'tpope/vim-commentary'
+Plugin 'vim-airline/vim-airline'
+Plugin 'ycm-core/YouCompleteMe'
 
-"
+" Move up and down in autocomplete with <c-j> and <c-k>
+inoremap <expr> <c-j> ("\<C-n>")
+inoremap <expr> <c-k> ("\<C-p>")
+
 " Git
 "
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-
 
 "
 " Fuzzy Search
@@ -35,25 +35,7 @@ set rtp+=~/.fzf
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 let $FZF_DEFAULT_COMMAND = 'find .'
-
-"
-" Misc
-"
-
-" Extend Vim's command language to add new "verbs" for operating on surroundings like braces
-Plugin 'tpope/vim-surround' " https://github.com/tpope/vim-surround
-
-" Syntax error highlighting
-Plugin 'vim-syntastic/syntastic'
-
-" Allow plugins to hook into the . repeat command
-Plugin 'tpope/vim-repeat' " https://github.com/tpope/vim-repeat
-
-" Comment out a line or multiple lines, using `gc` ("go comment")
-Plugin 'tpope/vim-commentary' " https://github.com/tpope/vim-commentary
-
-" Vim will draw a nice statusline at the bottom of each window
-Plugin 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
+nnoremap <C-p> :Files<cr>
 
 "
 " Language plugins
@@ -69,8 +51,6 @@ Plugin 'tpope/vim-rails'
 Plugin 'thoughtbot/vim-rspec'
 let g:rspec_runner = "os_x_iterm2"
 let g:rspec_command = "Dispatch bundle exec rspec {spec}"
-
-" RSpec.vim mappings
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
@@ -82,21 +62,14 @@ map <Leader>a :call RunAllSpecs()<CR>
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
 
 " ==============================================================================
 " Non-plugin stuff after this line
 " ==============================================================================
 
+"
+" Colors
+"
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -122,6 +95,28 @@ let mapleader = "\<space>"
 " plugins
 runtime! macros/matchit.vim " % matches on html tags, if/else, do/end, etc.
 
+" Tab completion
+" will insert tab at beginning of line,
+" will use completion if not at beginning
+set wildmode=list:longest,list:full
+function! InsertTabWrapper()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<Tab>"
+  else
+    return "\<C-p>"
+  endif
+endfunction
+inoremap <Tab> <C-r>=InsertTabWrapper()<CR>
+inoremap <S-Tab> <C-n>
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
+" Switch between the last two files
+nnoremap <Leader><Leader> <C-^>
+
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
@@ -131,7 +126,17 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 autocmd FileChangedShellPost *
       \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-" file read/write
+" When editing a file, always jump to the last known cursor position.
+" Don't do it for commit messages, when the position is invalid, or when
+" inside an event handler (happens when dropping a file on gvim).
+autocmd BufReadPost *
+      \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal g`\"" |
+      \ endif
+
+"
+" File read/write
+"
 set autoread      " automatically read the current file when changed outside of vim
 set autowrite     " automatically :write before running commands
 set nobackup      " do not create a backup file on save
@@ -197,8 +202,10 @@ if !empty(&viminfo)
   set viminfo^=!
 endif
 
-" automatically leave insert mode after 'updatetime' milliseconds of inaction
-" au CursorHoldI * stopinsert
+" Ref: https://vim.fandom.com/wiki/To_switch_back_to_normal_mode_automatically_after_inaction
+" set 'updatetime' to 15 seconds when in insert mode
+au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+au InsertLeave * let &updatetime=updaterestore
 
 " keybindings
 

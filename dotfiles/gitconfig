@@ -2,6 +2,8 @@
 	name = Greg Answer
 	email = greganswer@gmail.com
 	handle = greganswer
+[commit]
+	verbose = true
 [core]
 	editor = vim
 	autocrlf = input

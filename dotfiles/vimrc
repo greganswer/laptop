@@ -21,6 +21,7 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'tpope/vim-commentary'
 Plugin 'vim-airline/vim-airline'
 Plugin 'ycm-core/YouCompleteMe'
+Plugin 'AndrewRadev/splitjoin.vim'
 
 " Move up and down in autocomplete with <c-j> and <c-k>
 inoremap <expr> <c-j> ("\<C-n>")
@@ -187,7 +188,7 @@ set incsearch  " do incremental searching (fuzzy search)
 set smartcase  " search case sensitive only if there is a capital letter in the search expression
 
 "This unsets the "last search pattern" register by hitting return
-nnoremap <CR> :noh<CR><CR>
+nnoremap <CR> :noh<CR>
 
 " misc
 set backspace=2   " backspace deletes like most programs in insert mode

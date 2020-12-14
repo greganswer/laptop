@@ -20,7 +20,6 @@ ZSH_THEME="robbyrussell"
 plugins=(
   bundler
   docker
-  git
   zsh-syntax-highlighting
 )
 

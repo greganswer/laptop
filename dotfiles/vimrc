@@ -1,6 +1,6 @@
 " TODO: https://github.com/jreybert/vimagit
-" TODO: Add to Brewfilw brew install fzf and brew install ripgrep
-" TODO: Tab completion
+" References:
+"   - https://www.reddit.com/r/vim/comments/53bpb4/alternatives_to_esc
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -22,10 +22,13 @@ Plugin 'tpope/vim-commentary'
 Plugin 'vim-airline/vim-airline'
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'christoomey/vim-tmux-navigator'
+" Plugin 'jgdavey/tslime.vim'
+Plugin 'benmills/vimux'
 
 " Move up and down in autocomplete with <c-j> and <c-k>
-inoremap <expr> <c-j> ("\<C-n>")
-inoremap <expr> <c-k> ("\<C-p>")
+" inoremap <expr> <c-o> ("\<C-n>")
+" inoremap <expr> <c-k> ("\<C-p>")
 
 " Git
 "
@@ -46,19 +49,46 @@ nnoremap <C-p> :Files<cr>
 "
 Plugin 'sheerun/vim-polyglot'
 Plugin 'Chiel92/vim-autoformat'
-au BufWrite * :Autoformat
+" au BufWrite * :Autoformat
 
 "
 " Rails
 "
 Plugin 'tpope/vim-rails'
-Plugin 'thoughtbot/vim-rspec'
-let g:rspec_runner = "os_x_iterm2"
-let g:rspec_command = "Dispatch bundle exec rspec {spec}"
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+" Plugin 'thoughtbot/vim-rspec'
+" let g:rspec_runner = "os_x_iterm2"
+" let g:rspec_command = "Dispatch zeus rspec {spec} --color"
+" let g:rspec_command = 'call Send_to_Tmux("zeus rspec {spec}\n")'
+" map <Leader>t :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
+" map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>a :call RunAllSpecs()<CR>
+
+"
+" Testing
+"
+Plugin 'vim-test/vim-test'
+
+" function! EchoStrategy(cmd)
+"   echo 'It works! Command for running tests: ' . a:cmd
+" endfunction
+
+" let g:test#custom_strategies = {'echo': function('EchoStrategy')}
+" let g:test#strategy = 'echo'
+
+" Configure vim-test to execute test command
+let test#strategy = "vimux"
+nmap <silent> <Leader>t :TestFile<CR>
+nmap <silent> <Leader>s :TestNearest<CR>
+nmap <silent> <Leader>l :TestLast<CR>
+
+"
+" Tmux
+"
+" let g:tslime_always_current_session = 1
+" let g:tslime_always_current_window = 1
+let g:VimuxOrientation = "h"
+let g:VimuxUseNearest = 0
 
 " -------------------------------------
 " End of plugins
@@ -202,10 +232,18 @@ endif
 
 " Ref: https://vim.fandom.com/wiki/To_switch_back_to_normal_mode_automatically_after_inaction
 " set 'updatetime' to 15 seconds when in insert mode
-au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+au InsertEnter * let updaterestore=&updatetime | set updatetime=5000
 au InsertLeave * let &updatetime=updaterestore
 
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keybindings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" https://www.reddit.com/r/vim/comments/53bpb4/alternatives_to_esc
+:imap jk <Esc>:w<cr>
+:imap kj <Esc>:w<cr>
 
 " map ctrl-a to write the file
 nmap <c-a> :w<cr>
@@ -214,19 +252,9 @@ imap <c-a> <esc>:w<cr>
 " bind `q` to close the buffer for help files
 autocmd filetype help nnoremap <buffer> q :q<cr>
 
-autocmd Filetype gitcommit setlocal spell textwidth=72
-
-if has('autocmd')
-  filetype plugin indent on
-endif
-
 " move up and down by visible lines if current line is wrapped
 nmap j gj
 nmap k gk
-
-" Navigate quick fix window
-map <C-j> :cn<CR>
-map <C-k> :cp<CR>
 
 " split edit your vimrc. type space, v, r in sequence to trigger
 nmap <leader>vr :sp $MYVIMRC<cr>
@@ -246,3 +274,22 @@ function! PromoteToLet()
 endfunction
 :command! PromoteToLet :call PromoteToLet()
 :map <leader>p :PromoteToLet<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Quickfix window
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Auto adjust quick fix window based on lines of text.
+" https://vim.fandom.com/wiki/Automatically_fitting_a_quickfix_window_height
+au FileType qf call AdjustWindowHeight(10, 30)
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+
+" Close quickfix window
+nnoremap <buffer><silent> <esc> :cclose<bar>lclose<CR>
+
+" Navigate quick fix window
+" map <C-j> :cn<CR>
+" map <C-k> :cp<CR>
+

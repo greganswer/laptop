@@ -17,6 +17,7 @@ plugins=(
   bundler
   docker
   git
+  zsh-syntax-highlighting
 )
 
 # Import the Environment variables.

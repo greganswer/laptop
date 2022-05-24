@@ -3,7 +3,7 @@ unalias -m '*'
 #
 # General
 #
-alias updateshell='source $ZSH/oh-my-zsh.sh'
+alias updateshell='source /Users/greganswer/go/src/github.com/greganswer/laptop/dotfiles/zshrc'
 alias edit='code'
 alias sshaddkey='ssh-add ~/.ssh/id_rsa'
 alias malias='edit ~/.oh-my-zsh/custom/aliases.zsh'
@@ -148,17 +148,17 @@ freeport() {
 }
 
 preview_console() {
-   kubectl exec --stdin --tty $(preivew_pod_name $1) -n $(preview_namespace $1) -- rails console
+  kubectl exec --stdin --tty $(preivew_pod_name $1) -n $(preview_namespace $1) -- rails console
 }
 # $> preview_console branch
 
 preivew_pod_name() {
-   kubectl get pods -n $(preview_namespace $1) -o=name | head -n 1 | cut -d "/" -f 2
+  kubectl get pods -n $(preview_namespace $1) -o=name | head -n 1 | cut -d "/" -f 2
 }
 # $> preivew_pod_name branch
 
 preview_namespace() {
-   echo $1 | tr '/' '-' | awk '{print substr(tolower($0), 1, 63)}'
+  echo $1 | tr '/' '-' | awk '{print substr(tolower($0), 1, 63)}'
 }
 
 # Start preview environment

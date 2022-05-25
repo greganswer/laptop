@@ -102,7 +102,7 @@ alias gca='git commit --all'
 alias gp='git push'
 gpr() {
   # https://glab.readthedocs.io/en/latest/mr/create.html
-  glab mr create --fill --push --title $1 --assignee ganswer --reviewer jqian1,justin-rohrman,lucasgrocha_eh,ericktmr
+  glab mr create --fill --push --remove-source-branch --squash-before-merge --title $1 --assignee ganswer --reviewer jqian1,justin-rohrman,lucasgrocha_eh,ericktmr
 }
 
 # Additional

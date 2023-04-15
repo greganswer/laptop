@@ -13,87 +13,6 @@ curlj() {
 }
 
 #
-# Docker
-#
-alias dc='docker-compose'
-alias dclogs='dc logs -f --tail 100'
-alias dcrestart='dc restart'
-alias dcrebuild='dc rm -fsv; dcbuild --no-cache; dcup; dclogs'
-alias dckillandremoveall='dockerkillandremoveall'
-alias dccleanunused="docker system prune --all --force --volumes; osascript -e 'display notification \"Removed unused containers and images.\" with title \"Docker\"'"
-alias dps='docker ps -a --format "table {{.Names}}\\t{{.Image}}\\t{{.RunningFor}}\\t{{.Status}}\\t{{.Ports}}" | (read -r; printf "%s\n" "$REPLY"; sort -k 1 )'
-
-# Kill and remove all Docker containers and images.
-function dockerkillandremoveall() {
-  docker rm -f $(docker ps -a -q)
-  docker rmi -f $(docker images -q)
-  osascript -e 'display notification \"Removed all containers and images.\" with title \"Docker\"'
-}
-
-# Docker-compose up --detach with notification of length of time it takes to run.
-function dcup() {
-  T="$(date +%s)"
-  dc up -d
-  ELAPSED_TIME="$(($(date +%s) - T))"
-  DURATION="$(($ELAPSED_TIME / 60)) min $(($ELAPSED_TIME % 60)) sec"
-  echo "\n\nELAPSED_TIME = ${DURATION}"
-  osascript -e "display notification \"Containers are ready. This took ${DURATION}.\" with title \"Docker\""
-}
-
-# Docker-compose build (with arguments if provided).
-function dcbuild() {
-  rm -rf tmp/pids
-  T="$(date +%s)"
-  if [ "$1" ]; then
-    dc build --force-rm $1
-  else
-    dc build --force-rm
-  fi
-  ELAPSED_TIME="$(($(date +%s) - T))"
-  DURATION="$(($ELAPSED_TIME / 60)) min $(($ELAPSED_TIME % 60)) sec"
-  echo "\n\nELAPSED_TIME = ${DURATION}"
-  osascript -e "display notification \"Build completed in ${DURATION}.\" with title \"Docker\""
-}
-
-# Docker-compose exec bash (with arguments if provided).
-#
-# Example:
-#   $ dcexec db
-#   $ dcexec db psql -U postgres
-function dcexec() {
-  if [ "$2" ]; then
-    dc exec $1 ${@:2}
-  else
-    dc exec $1 bash
-  fi
-}
-
-# Reinstall Docker for Mac
-#
-# NOTE: This is not used too frequently
-function dockerreinstall() {
-  read "response?Are you sure you want to reinstall the Docker app?  [Y/n] "
-  response=${response:l} # tolower
-  if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
-    brew cask uninstall docker &&
-      echo "\nDeleting related files..." &&
-      sudo rm -Rf /Applications/Docker
-    sudo rm -f /usr/local/bin/docker
-    sudo rm -f /usr/local/bin/docker-machine
-    sudo rm -f /usr/local/bin/docker-compose
-    sudo rm -f /usr/local/bin/docker-credential-osxkeychain
-    sudo rm -Rf ~/.docker
-    sudo rm -Rf $HOME/Library/Containers/com.docker.*
-    echo "Related files deleted.\n"
-    brew tap caskroom/cask
-    brew cask install docker &&
-      open /Applications/Docker.app
-  else
-    echo "Aborting..."
-  fi
-}
-
-#
 # Git
 #
 # Most used
@@ -148,19 +67,26 @@ freeport() {
   # fi
 }
 
-preview_console() {
-  kubectl exec --stdin --tty $(preivew_pod_name $1) -n $(preview_namespace $1) -- rails console
+# open a store rails console in the preview environment
+# ex: preview_console bug-ewd-1234-branch
+function preview_console() {
+  local branch=$(echo "$1" | tr '/' '-' | tr '[:upper:]' '[:lower:]')
+    kubectl -n $branch exec -it $(kubectl -n $branch get pods | awk '/store-api/ && !/postgres/ && !/redis/' | cut -d ' ' -f1) -- bundle exec rails console
 }
-# $> preview_console branch
 
-preivew_pod_name() {
-  kubectl get pods -n $(preview_namespace $1) -o=name | head -n 1 | cut -d "/" -f 2
-}
-# $> preivew_pod_name branch
+# preview_console() {
+#   kubectl exec --stdin --tty $(preivew_pod_name $1) -n $(preview_namespace $1) -- rails console
+# }
+# # $> preview_console branch
 
-preview_namespace() {
-  echo $1 | tr '/' '-' | awk '{print substr(tolower($0), 1, 63)}'
-}
+# preivew_pod_name() {
+#   kubectl get pods -n $(preview_namespace $1) -o=name | head -n 1 | cut -d "/" -f 2
+# }
+# # $> preivew_pod_name branch
+
+# preview_namespace() {
+#   echo $1 | tr '/' '-' | awk '{print substr(tolower($0), 1, 63)}'
+# }
 
 # Start preview environment
 # Usage:

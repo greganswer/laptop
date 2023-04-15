@@ -24,3 +24,4 @@ plugins=(
 source ~/.env
 source ~/.aliases
 source $ZSH/oh-my-zsh.sh
+export PATH="/usr/local/opt/sqlite/bin:$PATH"

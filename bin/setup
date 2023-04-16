@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Download the Brewfile
+echo -e "\n\n\033[1;35mDownloading Brewfile...\033[0m"
+curl -L https://gist.githubusercontent.com/greganswer/fc93b73085b171780d8c0cfd90e6ed25/raw -o ~/Brewfile
+
+# Execute brew bundle
+echo -e "\n\n\033[1;35mInstalling Packages...\033[0m"
+brew bundle --file ~/Brewfile
+
+# Clone repo
+echo -e "\n\n\033[1;35mCloning Laptop repo...\033[0m"
+gh repo clone greganswer/laptop
+
+# Symlink dotfiles
+echo -e "\n\n\033[1;35mSymlinking dotfiles...\033[0m"
+
+dotfiles_path=~/src/laptop/dotfiles
+
+# Iterate through the files in the dotfiles directory
+for file in "$dotfiles_path"/*; do
+	# Get the base name of the file
+	file_name=$(basename "$file")
+
+	# Print the symlinking message
+	echo "Symlinking .$file_name"
+
+	# Set source and destination paths
+	source="$dotfiles_path/$file_name"
+	destination="$HOME/.$file_name"
+
+	# Remove existing destination if present
+	rm -f "$destination"
+
+	# Create the symlink
+	ln -s "$source" "$destination"
+done

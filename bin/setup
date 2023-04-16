@@ -4,13 +4,22 @@
 echo -e "\n\n\033[1;35mDownloading Brewfile...\033[0m"
 curl -L https://gist.githubusercontent.com/greganswer/fc93b73085b171780d8c0cfd90e6ed25/raw -o ~/Brewfile
 
+
 # Execute brew bundle
 echo -e "\n\n\033[1;35mInstalling Packages...\033[0m"
 brew bundle --file ~/Brewfile
 
+
+# SSH Keygen
+echo -e "\n\n\033[1;35mSSH Keygen...\033[0m"
+ssh-keygen
+ssh-add ~/.ssh/id_rsa
+
+
 # Clone repo
 echo -e "\n\n\033[1;35mCloning Laptop repo...\033[0m"
 gh repo clone greganswer/laptop
+
 
 # Symlink dotfiles
 echo -e "\n\n\033[1;35mSymlinking dotfiles...\033[0m"
@@ -35,3 +44,15 @@ for file in "$dotfiles_path"/*; do
 	# Create the symlink
 	ln -s "$source" "$destination"
 done
+
+
+# Configure Vim
+echo -e "\n\n\033[1;35mConfigure Vim...\033[0m"
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
+
+
+# Setup DBs
+echo -e "\n\n\033[1;35mSetup Databases...\033[0m"
+brew services restart postgresql
+createdb $USER

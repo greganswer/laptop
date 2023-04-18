@@ -2,7 +2,6 @@
 
 # Download the Brewfile
 echo -e "\n\n\033[1;35mDownloading Brewfile...\033[0m"
-curl -L https://gist.githubusercontent.com/greganswer/fc93b73085b171780d8c0cfd90e6ed25/raw -o ~/Brewfile
 curl -L https://raw.githubusercontent.com/greganswer/laptop/master/Brewfile -o ~/Brewfile
 
 
@@ -10,7 +9,7 @@ curl -L https://raw.githubusercontent.com/greganswer/laptop/master/Brewfile -o ~
 echo -e "\n\n\033[1;35mInstalling Packages...\033[0m"
 brew bundle --file ~/Brewfile
 sudo ln -sfn $(brew --prefix java)/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
-rm ~/Brewfile
+rm ~/Brewfile # Delete it so the repo is the source of truth.
 
 
 # SSH Keygen

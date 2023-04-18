@@ -3,7 +3,7 @@ unalias -m '*'
 #
 # General
 #
-alias updateshell='source /Users/greganswer/go/src/github.com/greganswer/laptop/dotfiles/zshrc'
+alias updateshell='source ~/.zshrc'
 alias edit='code'
 alias sshaddkey='ssh-add ~/.ssh/id_rsa'
 alias malias='edit ~/.oh-my-zsh/custom/aliases.zsh'

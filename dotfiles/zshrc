@@ -18,6 +18,7 @@ plugins=(
   docker
   git
   zsh-syntax-highlighting
+  zsh-autosuggestions
 )
 
 # Import the Environment variables.

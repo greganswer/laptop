@@ -59,6 +59,7 @@ done
 echo -e "\n\n\033[1;35mConfigure Vim...\033[0m"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
+python3 ~/.vim/bundle/YouCompleteMe/install.py --all
 
 
 # Setup DBs

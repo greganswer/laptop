@@ -3,7 +3,11 @@
 #
 export VISUAL="vim"     # -w causes terminal to wait till file is closed
 export EDITOR="$VISUAL" # export EDITOR=nano # For Linux
-export NVM_DIR=~/.nvm
+
+# NVM
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# export NVM_DIR=~/.nvm
 
 # shellcheck disable=SC1090
 [[ -f ~/.secrets ]] && source ~/.secrets

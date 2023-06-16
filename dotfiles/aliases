@@ -3,6 +3,7 @@ unalias -m '*'
 #
 # General
 #
+alias l='ls -la'
 alias updateshell='source ~/.zshrc'
 alias edit='code'
 alias sshaddkey='ssh-add ~/.ssh/id_rsa'
@@ -10,6 +11,27 @@ alias malias='edit ~/.oh-my-zsh/custom/aliases.zsh'
 curlj() {
   ARGS=$1
   curl --header "Content-Type: application/json" $ARGS | jq
+}
+convertmovrecordingstomp4() {
+  input_dir="$HOME/Desktop"
+
+  # Convert .mov files to .mp4
+  for file in "$input_dir"/*.mov; do
+      if [ -f "$file" ]; then
+          filename=$(basename "$file")
+          filename="${filename%.*}"
+          output_file="$input_dir/$filename.mp4"
+
+          if [ ! -f "$output_file" ]; then
+              ffmpeg -i "$file" -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k "$output_file"
+              echo "Converted $filename.mov to $filename.mp4"
+          else
+              echo "Skipping $filename.mov as $filename.mp4 already exists"
+          fi
+      fi
+  done
+
+  echo "Conversion complete!"
 }
 
 #
@@ -19,7 +41,7 @@ curlj() {
 alias gnb='git checkout main && git pull && git checkout -b ga-a$(openssl rand -hex 3)'
 alias gca='git commit --all'
 alias gp='git push'
-alias cop='rubocop -A $(git diff --name-only main...HEAD | cat)'
+alias cop='rubocop -A $(git diff --name-only | cat) $(git diff --name-only main...HEAD | cat)'
 gpr() {
   # https://glab.readthedocs.io/en/latest/mr/create.html
   glab mr create --fill --push --remove-source-branch --squash-before-merge --title $1 --assignee ganswer --reviewer jqian1,justin-rohrman,lucasgrocha_eh

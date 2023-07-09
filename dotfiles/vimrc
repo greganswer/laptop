@@ -43,6 +43,7 @@ Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 let $FZF_DEFAULT_COMMAND = 'find .'
 nnoremap <C-p> :Files<cr>
+nnoremap <C-e> :History<CR>
 
 "
 " Language plugins
@@ -95,6 +96,7 @@ filetype plugin indent on    " required
 " ==============================================================================
 " Non-plugin stuff after this line
 " ==============================================================================
+let g:markdown_fenced_languages = ['js=javascript', 'ruby']
 
 "
 " Colors

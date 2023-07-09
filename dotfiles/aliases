@@ -39,12 +39,12 @@ convertmovrecordingstomp4() {
 #
 # Most used
 alias gnb='git checkout main && git pull && git checkout -b ga-a$(openssl rand -hex 3)'
-alias gca='git commit --all'
+alias gca='git commit --all --no-verify'
 alias gp='git push'
 alias cop='rubocop -A $(git diff --name-only | cat) $(git diff --name-only main...HEAD | cat)'
 gpr() {
   # https://glab.readthedocs.io/en/latest/mr/create.html
-  glab mr create --fill --push --remove-source-branch --squash-before-merge --title $1 --assignee ganswer --reviewer jqian1,justin-rohrman,lucasgrocha_eh
+  glab mr create --fill --push --remove-source-branch --squash-before-merge --title $1 --assignee ganswer --reviewer justin-rohrman,lucasgrocha_eh
 }
 
 # Additional

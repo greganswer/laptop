@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# TODO:
+#   - Expand all short form options like -p and -s
+
 user_input_jira_id="$1"
 
 confirm() {
@@ -9,32 +12,47 @@ confirm() {
   [[ "${input}" =~ ^[Yy]$ ]] && return 0 || return 1
 }
 
+
 # Fetch the Jira issue.
+
 echo "Fetching $user_input_jira_id Jira issue..."
-api_url="$JIRA_BASE_URL/rest/api/latest/issue/$user_input_jira_id"
-response=$(curl -u "$JIRA_EMAIL:$JIRA_TOKEN" -H "Content-Type: application/json" "$api_url")
+issue_url="$JIRA_BASE_URL/rest/api/latest/issue/$user_input_jira_id"
+response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" -H "Content-Type: application/json" "$issue_url")
 issue_id=$(echo "$response" | jq -r '.key')
 issue_title=$(echo "$response" | jq -r '.fields.summary')
 
-# Check if the issue key is null
-if [ "$issue_id" == "null" ]; then
-  echo -e "\n$response"
-  exit 1
-fi
 
 # Confirm the issue is correct.
-confirm "$issue_id: $issue_title" || exit
+
+if [ "$issue_id" == "null" ]; then
+  echo -e "\n$response\n"
+  exit 1
+fi
+confirm "$issue_id: $issue_title?" || exit
 
 
 # Create the branch.
-issue_type=$(echo "$response" | jq -r '.fields.issuetype.name')
-branch="$issue_id-$issue_type"
-echo "Creating $branch branch off of main..."
-# TODO: Make branch with "{user_input_jira_id}-{type}"
-# git checkout main && git pull && git checkout -b ga-a$(openssl rand -hex 3)
+
+# issue_type=$(echo "$response" | jq -r '.fields.issuetype.name')
+# branch="$issue_id-$issue_type"
+# echo "Creating $branch branch off of main..."
+# git checkout main && git pull && git checkout -b $branch
 
 
 # Set Jira ticket "In Progress".
 
+transition_url="$JIRA_BASE_URL/rest/api/latest/issue/$issue_id/transitions"
+response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" "Content-Type: application/json" "$transition_url")
+in_progress_transition_id=$(echo "$response" | jq -r '.transitions[] | select(.name == "In Progress") | .id')
+transition_data='{"transition": {"id": "'"$in_progress_transition_id"'"}}'
+echo $transition_data
+response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" -X POST -H "Content-Type: application/json" --data "$transition_data" "$transition_url")
+echo -e "\n$response\n"
+
 
 # Assign me to the ticket.
+
+# assignment_url="$JIRA_BASE_URL/rest/api/latest/issue/$issue_id"
+# assignment_data=='{ "fields": { "assignee": { "name": "'"$USERNAME"'" } } }' # TODO: Get user name
+# response=$(curl -u "$JIRA_EMAIL:$JIRA_TOKEN" -X PUT -H "Content-Type: application/json" --data "$assignement_data" "$assignment_url")
+# echo -e "\n$response\n"

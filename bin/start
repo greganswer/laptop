@@ -12,7 +12,7 @@ confirm() {
 
 # Fail without user input.
 if [ -z "$user_input_jira_id" ]; then
-  echo -e "\nJira ID required.\n"
+  echo -e "Jira ID required."
   exit 1
 fi
 
@@ -29,7 +29,7 @@ issue_title=$(echo "$response" | jq -r '.fields.summary')
 # Confirm the issue is correct.
 
 if [ "$issue_id" == "null" ]; then
-  echo -e "\n$response\n"
+  echo -e "$response"
   exit 1
 fi
 confirm "$issue_id: $issue_title?" || exit
@@ -50,7 +50,7 @@ response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" "Content-Type: application/json"
 in_progress_transition_id=$(echo "$response" | jq -r '.transitions[] | select(.name == "In Progress") | .id')
 transition_data='{"transition": {"id": "'"$in_progress_transition_id"'"}}'
 response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" -X POST -H "Content-Type: application/json" --data "$transition_data" "$transition_url")
-echo -e "\n$response\n"
+echo -e "$response"
 
 
 # Assign me to the ticket.
@@ -64,4 +64,4 @@ response=$(curl \
   --url "$JIRA_BASE_URL/rest/api/latest/issue/$issue_id/assignee" \
   --data '{ "accountId": "'"$JIRA_ACCOUNT_ID"'" }'
 )
-echo -e "\n$response\n"
+echo -e "$response"

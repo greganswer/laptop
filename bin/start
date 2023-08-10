@@ -1,4 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# When the `--debug` flag is passed to this script, display the file and line
+# number for each command that executed.
+[[ "${*}" =~ --debug ]] && set -o xtrace
+PS4='+ ${BASH_SOURCE}:${LINENO} '
+
+set -o pipefail # `error here | true` will fail if this is enabled.
+set -o errexit # Exit the script when an error occurs.
 
 user_input_jira_id="$1"
 
@@ -38,13 +46,14 @@ confirm "$issue_id: $issue_title?" || exit
 # Create the branch.
 
 issue_type=$(echo "$response" | jq -r '.fields.issuetype.name')
-branch=$(echo "$issue_id-$issue_type" | sed 's/ /-/g')
+branch=$(echo "$issue_id-$issue_type-$GLAB_USERNAME" | sed 's/ /-/g')
 echo "Creating '$branch' branch off of main..."
 git checkout main && git pull && git checkout -b "$branch"
 
 
 # Set Jira ticket "In Progress".
 
+echo "Setting Jira ticket 'In Progress'..."
 transition_url="$JIRA_BASE_URL/rest/api/latest/issue/$issue_id/transitions"
 response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" "Content-Type: application/json" "$transition_url")
 in_progress_transition_id=$(echo "$response" | jq -r '.transitions[] | select(.name == "In Progress") | .id')
@@ -55,6 +64,7 @@ echo -e "$response"
 
 # Assign me to the ticket.
 
+echo "Assigning ticket to self"
 response=$(curl \
   --silent \
   --user "$JIRA_EMAIL:$JIRA_TOKEN" \

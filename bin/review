@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# When the `--debug` flag is passed to this script, display the file and line number for each command that executed.
+[[ "${*}" =~ --debug ]] && set -o xtrace
+PS4='+ ${BASH_SOURCE}:${LINENO} '
+set -o pipefail # `error here | true` will fail if this is enabled.
+set -o errexit # Exit the script when an error occurs.
+
+
+# Fetch the Jira issue.
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+issue_id=$(echo "$current_branch" | cut -d'-' -f1-2)
+echo "Fetching $issue_id Jira issue..."
+issue_url="$JIRA_BASE_URL/rest/api/latest/issue/$issue_id"
+response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" -H "Content-Type: application/json" "$issue_url")
+issue_title=$(echo "$response" | jq -r '.fields.summary')
+
+
+# Create the MR.
+# https://gitlab.com/gitlab-org/cli/-/blob/main/docs/source/mr/create.md
+
+title="$issue_id: $issue_title"
+description=$(< "$PWD/$GLAB_MR_TEMPLATE")
+glab mr create --push --remove-source-branch --squash-before-merge --title "$title" --description "$description" --assignee "$GLAB_USERNAME" --reviewer $GLAB_REVIEWERS
+
+
+# Set Jira ticket to "Code Review".
+
+echo "Setting Jira ticket to 'Code Review'..."
+transition_url="$JIRA_BASE_URL/rest/api/latest/issue/$issue_id/transitions"
+response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" "Content-Type: application/json" "$transition_url")
+transition_id=$(echo "$response" | jq -r '.transitions[] | select(.name == "Code Review") | .id')
+transition_data='{"transition": {"id": "'"$transition_id"'"}}'
+response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" -X POST -H "Content-Type: application/json" --data "$transition_data" "$transition_url")
+echo -e "$response"
+
+
+# Send slack message.
+
+# curl -X POST -H 'Content-type: application/json' --data '{
+#     "text": "Can I get review on this please? MR link in ticket. '$JIRA_BASE_URL/$issue_id'",
+#     "username": "CurlBot",
+#     "icon_emoji": ":robot_face:"
+# }' https://hooks.slack.com/services/your/webhook/url

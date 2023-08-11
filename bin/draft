@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-# When the `--debug` flag is passed to this script, display the file and line
-# number for each command that executed.
+# When the `--debug` flag is passed to this script, display the file and line number for each command that executed.
 [[ "${*}" =~ --debug ]] && set -o xtrace
 PS4='+ ${BASH_SOURCE}:${LINENO} '
-
 set -o pipefail # `error here | true` will fail if this is enabled.
 set -o errexit # Exit the script when an error occurs.
 
@@ -18,9 +16,10 @@ issue_url="$JIRA_BASE_URL/rest/api/latest/issue/$issue_id"
 response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" -H "Content-Type: application/json" "$issue_url")
 issue_title=$(echo "$response" | jq -r '.fields.summary')
 
+
 # Create the draft MR.
 # https://gitlab.com/gitlab-org/cli/-/blob/main/docs/source/mr/create.md
 
 title="$issue_id: $issue_title"
-echo $title
-glab mr create --draft --fill --push --remove-source-branch --squash-before-merge --title "$title" --assignee "$GLAB_USERNAME" --reviewer $GLAB_REVIEWERS
+description=$(< "$PWD/$GLAB_MR_TEMPLATE")
+glab mr create --draft --push --remove-source-branch --squash-before-merge --title "$title" --description "$description" --assignee "$GLAB_USERNAME" --reviewer $GLAB_REVIEWERS

@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 
+################################################################################
+# Script Name: start
+# Description: This script Creates a branch off main, assignes the Jira ticket to you, and transitions it to "In Progress"
+# Author: Greg Answer
+# License: MIT
+#
+# Dependencies:
+#   - jq: https://jqlang.github.io/jq/tutorial
+#
+# Environment Variables (set in your ~/.bash_profile or where you prefer):
+#   - JIRA_BASE_URL: Example if you work at Acme Inc, the url may be https://acme.atlassian.net
+#   - JIRA_EMAIL: The email address associated with your Jira account
+#   - JIRA_TOKEN: https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account
+#
+# Usage: ./start C2-123 [options]
+################################################################################
+
+
 # When the `--debug` flag is passed to this script, display the file and line number for each command that executed.
 [[ "${*}" =~ --debug ]] && set -o xtrace
 PS4='+ ${BASH_SOURCE}:${LINENO} '

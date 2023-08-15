@@ -1,10 +1,42 @@
 #!/usr/bin/env bash
 
+################################################################################
+# Script Name: review
+# Description: This script Creates an MR in GitLab with Jira ticket and title, then transitions the Jira ticket to "Code Review"
+# Author: Greg Answer
+# License: MIT
+#
+# Dependencies:
+#   - jq: https://jqlang.github.io/jq/tutorial
+#   - glab: https://gitlab.com/gitlab-org/cli/-/blob/main/docs/source/mr/create.md
+#
+# Environment Variables (set in your ~/.bash_profile or where you prefer):
+#   - JIRA_BASE_URL: Example if you work at Acme Inc, the url may be https://acme.atlassian.net
+#   - JIRA_EMAIL: The email address associated with your Jira account
+#   - JIRA_TOKEN: https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account
+#   - GLAB_USERNAME: GitLab username can be found at https://gitlab.com/-/profile/account
+#   - GLAB_REVIEWERS: Check previous MRs for your team or ask them to check the link above
+#     - Example: export GLAB_REVIEWERS="mike,sally"
+#   - GLAB_MR_TEMPLATE: Gitlab templates can be found in the .gitlab/merge_request_templates directory of the project
+#     - Example:  export GLAB_MR_TEMPLATE=".gitlab/merge_request_templates/sces.md"
+#
+# Usage: ./review [options]
+################################################################################
+
+
 # When the `--debug` flag is passed to this script, display the file and line number for each command that executed.
 [[ "${*}" =~ --debug ]] && set -o xtrace
 PS4='+ ${BASH_SOURCE}:${LINENO} '
 set -o pipefail # `error here | true` will fail if this is enabled.
 set -o errexit # Exit the script when an error occurs.
+
+
+confirm() {
+  echo
+  read -p "${1} (y/n) " -n 1 input
+  echo
+  [[ "${input}" =~ ^[Yy]$ ]] && return 0 || return 1
+}
 
 
 # Fetch the Jira issue.
@@ -17,11 +49,20 @@ response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" -H "Content-Type: application/js
 issue_title=$(echo "$response" | jq -r '.fields.summary')
 
 
-# Create the MR.
-# https://gitlab.com/gitlab-org/cli/-/blob/main/docs/source/mr/create.md
+# Confirm MR title.
 
 title="$issue_id: $issue_title"
-description=$(< "$PWD/$GLAB_MR_TEMPLATE")
+confirm "$title?" || exit
+
+
+# Get description.
+
+path="$PWD/$GLAB_MR_TEMPLATE"
+description=$(if [ -e "$path" ]; then cat "$path"; else echo ""; fi)
+
+
+# Create the MR.
+
 glab mr create --push --remove-source-branch --squash-before-merge --title "$title" --description "$description" --assignee "$GLAB_USERNAME" --reviewer $GLAB_REVIEWERS
 
 
@@ -34,12 +75,3 @@ transition_id=$(echo "$response" | jq -r '.transitions[] | select(.name == "Code
 transition_data='{"transition": {"id": "'"$transition_id"'"}}'
 response=$(curl -s -u "$JIRA_EMAIL:$JIRA_TOKEN" -X POST -H "Content-Type: application/json" --data "$transition_data" "$transition_url")
 echo -e "$response"
-
-
-# Send slack message.
-
-# curl -X POST -H 'Content-type: application/json' --data '{
-#     "text": "Can I get review on this please? MR link in ticket. '$JIRA_BASE_URL/$issue_id'",
-#     "username": "CurlBot",
-#     "icon_emoji": ":robot_face:"
-# }' https://hooks.slack.com/services/your/webhook/url

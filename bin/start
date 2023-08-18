@@ -13,6 +13,7 @@
 #   - JIRA_BASE_URL: Example if you work at Acme Inc, the url may be https://acme.atlassian.net
 #   - JIRA_EMAIL: The email address associated with your Jira account
 #   - JIRA_TOKEN: https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account
+#   - GLAB_USERNAME: GitLab username can be found at https://gitlab.com/-/profile/account
 #
 # Usage: ./start C2-123 [options]
 ################################################################################

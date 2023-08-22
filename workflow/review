@@ -9,6 +9,7 @@
 # Dependencies:
 #   - jq: https://jqlang.github.io/jq/tutorial
 #   - glab: https://gitlab.com/gitlab-org/cli/-/blob/main/docs/source/mr/create.md
+#           https://gitlab.com/gitlab-org/cli/-/blob/main/docs/source/mr/update.md
 #
 # Environment Variables (set in your ~/.bash_profile or where you prefer):
 #   - JIRA_BASE_URL: Example if you work at Acme Inc, the url may be https://acme.atlassian.net
@@ -61,9 +62,9 @@ path="$PWD/$GLAB_MR_TEMPLATE"
 description=$(if [ -e "$path" ]; then cat "$path"; else echo ""; fi)
 
 
-# Create the MR.
+# Create or update the MR.
 
-glab mr create --push --remove-source-branch --squash-before-merge --title "$title" --description "$description" --assignee "$GLAB_USERNAME" --reviewer $GLAB_REVIEWERS
+glab mr create --push --remove-source-branch --squash-before-merge --title "$title" --description "$description" --assignee "$GLAB_USERNAME" --reviewer $GLAB_REVIEWERS || glab mr update "$current_branch" --ready
 
 
 # Set Jira ticket to "Code Review".

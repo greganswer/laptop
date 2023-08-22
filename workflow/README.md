@@ -18,6 +18,8 @@ I prefixed them with `g` so that they don't conflict with any other binaries.
 
 ## Usage/Examples
 
+**Warning:** open and read each script before running them. Ensure you've setup the dependencies and environment variables listed in them. Remember, *THE SOFTWARE IS PROVIDED "AS IS"*.
+
 My workflow looks like the following:
 
 ```bash

@@ -56,6 +56,13 @@ title="$issue_id: $issue_title"
 confirm "$title?" || exit
 
 
+# Confirm Rubocop
+
+if confirm "Rubocop?"; then
+  rubocop -A $(git diff --name-only | cat) $(git diff --name-only main...HEAD | cat)
+fi
+
+
 # Get description.
 
 path="$PWD/$GLAB_MR_TEMPLATE"

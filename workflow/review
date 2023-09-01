@@ -60,6 +60,8 @@ confirm "$title?" || exit
 
 if confirm "Rubocop?"; then
   rubocop -A $(git diff --name-only | cat) $(git diff --name-only main...HEAD | cat)
+  echo "Please commit the changes and enter 'n' next time you see this prompt"
+  exit
 fi
 
 

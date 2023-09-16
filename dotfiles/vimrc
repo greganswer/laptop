@@ -25,6 +25,7 @@ Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 " Plugin 'jgdavey/tslime.vim'
 Plugin 'benmills/vimux'
+Plugin 'mechatroner/rainbow_csv'
 
 " Move up and down in autocomplete with <c-j> and <c-k>
 " inoremap <expr> <c-o> ("\<C-n>")
@@ -232,7 +233,9 @@ endif
 au InsertEnter * let updaterestore=&updatetime | set updatetime=5000
 au InsertLeave * let &updatetime=updaterestore
 
+" Spell-check Markdown files and Git Commit Messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd FileType markdown setlocal spell
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keybindings

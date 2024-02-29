@@ -26,6 +26,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 " Plugin 'jgdavey/tslime.vim'
 Plugin 'benmills/vimux'
 Plugin 'mechatroner/rainbow_csv'
+Plugin 'maxmellon/vim-jsx-pretty'
 
 " Move up and down in autocomplete with <c-j> and <c-k>
 " inoremap <expr> <c-o> ("\<C-n>")

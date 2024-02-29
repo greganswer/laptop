@@ -3,7 +3,7 @@ unalias -m '*'
 #
 # General
 #
-alias l='ls -la'
+alias l='ls -lah'
 alias updateshell='source ~/.zshrc'
 alias edit='code'
 alias sshaddkey='ssh-add ~/.ssh/id_rsa'
@@ -23,7 +23,8 @@ convertmovrecordingstomp4() {
           output_file="$input_dir/$filename.mp4"
 
           if [ ! -f "$output_file" ]; then
-              ffmpeg -i "$file" -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k "$output_file"
+              # ffmpeg -i "$file" -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k "$output_file"
+              ffmpeg -i "$file" "$output_file"
               echo "Converted $filename.mov to $filename.mp4"
           else
               echo "Skipping $filename.mov as $filename.mp4 already exists"
@@ -42,6 +43,7 @@ alias gnb='git checkout main && git pull && git checkout -b ga-a$(openssl rand -
 alias gca='git commit --all --no-verify'
 alias gp='git push'
 alias cop='rubocop -A $(git diff --name-only | cat) $(git diff --name-only main...HEAD | cat)'
+alias spec='bundle exec rspec $(git diff --name-only | grep _spec | cat) $(git diff --name-only main...HEAD | grep _spec| cat)'
 gpr() {
   # https://glab.readthedocs.io/en/latest/mr/create.html
   glab mr create --fill --push --remove-source-branch --squash-before-merge --title $1 --assignee ganswer --reviewer justin-rohrman,lucasgrocha_eh

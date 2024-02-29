@@ -14,6 +14,7 @@
 	<integer>0</integer>
 	<key>Coprocess MRU</key>
 	<array>
+		<string>echo vim /Users/greganswer/.rbenv/versions/3.0.5/lib/ruby/gems/3.0.0/gems/spree_core-4.5.1/app/models/spree/promotion.rb +54</string>
 		<string>echo vim /Users/greganswer/src/Results/app/components/ConfirmIdentifiers/ConfirmIdentifiersForm/index.tsx +</string>
 		<string>echo vim /Users/greganswer/code/work/store/spec/mailers/kit_results_mailer_spec.rb +320</string>
 		<string>echo vim /Users/greganswer/.vimrc +</string>
@@ -1592,7 +1593,7 @@
 	<key>RequireCmdForDraggingText</key>
 	<true/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>

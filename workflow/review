@@ -73,8 +73,7 @@ description=$(if [ -e "$path" ]; then cat "$path"; else echo ""; fi)
 
 # Create or update the MR.
 
-glab mr create --push --remove-source-branch --squash-before-merge --title "$title" --description "$description" --assignee "$GLAB_USERNAME" --reviewer $GLAB_REVIEWERS || glab mr update "$current_branch" --ready
-
+glab mr create --push --remove-source-branch --squash-before-merge --title "$title" --description "$description" --assignee "$GLAB_USERNAME" --reviewer $GLAB_REVIEWERS || glab mr update "$current_branch" --ready --remove-source-branch --squash-before-merge --title "$title" --description "$description" --assignee "$GLAB_USERNAME" --reviewer $GLAB_REVIEWERS
 
 # Set Jira ticket to "Code Review".
 

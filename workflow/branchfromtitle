@@ -1,0 +1,52 @@
+#!/bin/bash
+
+################################################################################
+# Script Name: branchfromtitle
+# Description: Create a branch name from a title
+# Author: Greg Answer
+# License: MIT
+#
+# Dependencies:
+#   - jq: https://jqlang.github.io/jq/tutorial
+#
+# Environment Variables (set in your ~/.bash_profile or where you prefer):
+#   - CHAT_GPT_API_KEY: The key for the Chat GPT API
+#
+# Usage: ./branfromtitle "Fix the broken CSV" [options]
+################################################################################
+
+
+# When the `--debug` flag is passed to this script, display the file and line number for each command that executed.
+[[ "${*}" =~ --debug ]] && set -o xtrace
+PS4='+ ${BASH_SOURCE}:${LINENO} '
+set -o pipefail # `error here | true` will fail if this is enabled.
+set -o errexit # Exit the script when an error occurs.
+
+# Take the input
+input="$1"
+user_input="Transform the following string to a simplified version under 20 lowercase characters with hyphen separation. Original: $input"
+
+# Prepare the request payload
+request_body=$(cat <<EOF
+{
+  "model": "gpt-4o",
+  "messages": [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "$user_input"}
+  ],
+  "max_tokens": 60
+}
+EOF
+)
+
+# Send the request to the OpenAI API using curl
+response=$(curl -s -X POST "https://api.openai.com/v1/chat/completions" \
+  -H "Authorization: Bearer $CHAT_GPT_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "$request_body")
+
+# Extract the response text
+result=$(echo "$response" | jq -r '.choices[0].message.content' | tr -d '\n')
+
+# Display the result
+echo "$result"

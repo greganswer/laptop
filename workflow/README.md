@@ -9,9 +9,10 @@ Workflow is a set of Bash scripts that helps automate these admin tasks so you c
 Download one or more of the scripts you want to use into a folder of your choice. You can symlink them into your binary folder with the following:
 
 ```bash
-"$PWD/start" /usr/local/bin/gstart
-"$PWD/review" /usr/local/bin/greview
-"$PWD/draft" /usr/local/bin/gdraft
+ln -s "$PWD/start" /usr/local/bin/gstart
+ln -s "$PWD/review" /usr/local/bin/greview
+ln -s "$PWD/draft" /usr/local/bin/gdraft
+ln -s "$PWD/branchfromtitle" /usr/local/bin/branchfromtitle
 ```
 
 I prefixed them with `g` so that they don't conflict with any other binaries.

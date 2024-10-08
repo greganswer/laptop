@@ -61,11 +61,16 @@ if [ "$issue_id" == "null" ]; then
 fi
 confirm "$issue_id: $issue_title?" || exit
 
+# Create and confirm branch name.
+branch_title=$(branchfromtitle "$issue_title")
+branch="$issue_id-$branch_title"
+confirm "$branch?" || exit
 
 # Create the branch.
 
 issue_type=$(echo "$response" | jq -r '.fields.issuetype.name')
-branch=$(echo "$issue_id-$issue_type-$GLAB_USERNAME" | sed 's/ /-/g')
+rand_string=$(echo $(date +"%Y-%m-%d")-$(openssl rand -hex 2))
+# branch=$(echo "$issue_id-$issue_type-$GLAB_USERNAME-$rand_string" | sed 's/ /-/g')
 echo "Creating '$branch' branch off of main..."
 git checkout main && git pull && git checkout -b "$branch"
 

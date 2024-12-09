@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Install Brew
+echo -e "\n\n\033[1;35mInstalling Brew...\033[0m"
+curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+
+
 # Download the Brewfile
 echo -e "\n\n\033[1;35mDownloading Brewfile...\033[0m"
 curl -L https://raw.githubusercontent.com/greganswer/laptop/master/Brewfile -o ~/Brewfile

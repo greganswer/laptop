@@ -95,37 +95,3 @@ freeport() {
   # fi
 }
 
-# open a store rails console in the preview environment
-# ex: preview_console bug-ewd-1234-branch
-function preview_console() {
-  local branch=$(echo "$1" | tr '/' '-' | tr '[:upper:]' '[:lower:]')
-    kubectl -n $branch exec -it $(kubectl -n $branch get pods | awk '/store-api/ && !/postgres/ && !/redis/' | cut -d ' ' -f1) -- bundle exec rails console
-}
-
-# preview_console() {
-#   kubectl exec --stdin --tty $(preivew_pod_name $1) -n $(preview_namespace $1) -- rails console
-# }
-# # $> preview_console branch
-
-# preivew_pod_name() {
-#   kubectl get pods -n $(preview_namespace $1) -o=name | head -n 1 | cut -d "/" -f 2
-# }
-# # $> preivew_pod_name branch
-
-# preview_namespace() {
-#   echo $1 | tr '/' '-' | awk '{print substr(tolower($0), 1, 63)}'
-# }
-
-# Start preview environment
-# Usage:
-#   preview <application> <namespace>
-#   preview store ewd-123-some-new-ticket
-# function preview {
-#   api=$(get_app $1 $2)
-#   kubectl -n $2 exec -it $api -- bundle exec rails c
-# }
-
-# Get store-api from namespace
-# function get_app {
-#   kubectl -n $2 get pods | grep -o "$1-api-[A-Za-z0-9]*-[A-Za-z0-9]*"
-# }

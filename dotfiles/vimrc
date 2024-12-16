@@ -27,6 +27,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'benmills/vimux'
 Plugin 'mechatroner/rainbow_csv'
 Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'preservim/nerdtree'
 
 " Move up and down in autocomplete with <c-j> and <c-k>
 " inoremap <expr> <c-o> ("\<C-n>")
@@ -46,6 +47,14 @@ Plugin 'junegunn/fzf.vim'
 let $FZF_DEFAULT_COMMAND = 'find .'
 nnoremap <C-p> :Files<cr>
 nnoremap <C-e> :History<CR>
+
+
+"
+" Nerd Tree
+"
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
 
 "
 " Language plugins

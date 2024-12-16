@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/greganswer/.oh-my-zsh
+export ZSH=/Users/grega/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -33,5 +33,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Because I keep needing this after restart for some reason.
-eval "$(ssh-agent)"
-ssh-add --apple-use-keychain ~/.ssh/id_rsa
+# eval "$(ssh-agent)"
+# ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+eval "$(~/.local/bin/mise activate)"

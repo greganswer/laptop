@@ -20,7 +20,7 @@ rm ~/Brewfile # Delete it so the repo is the source of truth.
 # SSH Keygen
 echo -e "\n\n\033[1;35mSSH Keygen...\033[0m"
 ssh-keygen
-ssh-add ~/.ssh/id_rsa
+ssh-add ~/.ssh/id_ed25519
 
 
 # Setup Oh My zsh

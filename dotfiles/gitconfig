@@ -17,3 +17,7 @@
 	insteadOf = https://github.com/
 [commit]
 	verbose = true
+[color]
+	ui = true
+[init]
+	defaultBranch = main

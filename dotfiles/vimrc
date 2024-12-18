@@ -263,14 +263,17 @@ imap <c-a> <esc>:w<cr>
 autocmd filetype help nnoremap <buffer> q :q<cr>
 
 " move up and down by visible lines if current line is wrapped
-nmap j gj
-nmap k gk
+" NOTE: I disabled this for now since it's annoying sometimes
+" nmap j gj
+" nmap k gk
 
 " split edit your vimrc. type space, v, r in sequence to trigger
 nmap <leader>vr :sp $MYVIMRC<cr>
 
 " source (reload) your vimrc. type space, s, o in sequence to trigger
 nmap <leader>so :source $MYVIMRC<cr>
+
+nmap <leader>w <esc>:w<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PROMOTE VARIABLE TO RSPEC LET

@@ -1,8 +1,10 @@
 tap 'homebrew/bundle'
 tap 'homebrew/services'
 
+brew 'lazygit'
 brew 'aws-iam-authenticator'
 brew 'awscli'
+brew 'bash'
 brew 'bash-completion'
 brew 'cmake'
 brew 'coreutils'

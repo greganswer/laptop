@@ -4,6 +4,7 @@ unalias -m '*'
 # General
 #
 alias l='ls -lah'
+alias v='nvim'
 alias updateshell='source ~/.zshrc'
 alias edit='code'
 alias sshaddkey='ssh-add ~/.ssh/id_rsa'

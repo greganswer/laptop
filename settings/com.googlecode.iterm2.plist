@@ -747,12 +747,16 @@
 			</dict>
 			<key>Background Color (Dark)</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.27054747939109802</real>
+				<real>0.21294358372688293</real>
+				<key>Color Space</key>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.11274909973144531</real>
+				<real>0.13289341330528259</real>
 				<key>Red Component</key>
-				<real>0.12003477662801743</real>
+				<real>0.1329035758972168</real>
 			</dict>
 			<key>Background Color (Light)</key>
 			<dict>

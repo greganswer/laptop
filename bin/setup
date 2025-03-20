@@ -4,11 +4,9 @@
 echo -e "\n\n\033[1;35mInstalling Brew...\033[0m"
 curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
 
-
 # Download the Brewfile
 echo -e "\n\n\033[1;35mDownloading Brewfile...\033[0m"
 curl -L https://raw.githubusercontent.com/greganswer/laptop/master/Brewfile -o ~/Brewfile
-
 
 # Execute brew bundle
 echo -e "\n\n\033[1;35mInstalling Packages...\033[0m"
@@ -16,12 +14,10 @@ brew bundle --file ~/Brewfile
 sudo ln -sfn $(brew --prefix java)/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 rm ~/Brewfile # Delete it so the repo is the source of truth.
 
-
 # SSH Keygen
 echo -e "\n\n\033[1;35mSSH Keygen...\033[0m"
 ssh-keygen
 ssh-add ~/.ssh/id_ed25519
-
 
 # Setup Oh My zsh
 echo -e "\n\n\033[1;35mSetup oh my zsh...\033[0m"
@@ -29,11 +25,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-
 # Clone repo
 echo -e "\n\n\033[1;35mCloning Laptop repo...\033[0m"
-gh repo clone greganswer/laptop
-
+git clone https://github.com/greganswer/laptop
 
 # Symlink dotfiles
 echo -e "\n\n\033[1;35mSymlinking dotfiles...\033[0m"
@@ -42,30 +36,28 @@ dotfiles_path=~/src/laptop/dotfiles
 
 # Iterate through the files in the dotfiles directory
 for file in "$dotfiles_path"/*; do
-	# Get the base name of the file
-	file_name=$(basename "$file")
+  # Get the base name of the file
+  file_name=$(basename "$file")
 
-	# Print the symlinking message
-	echo "Symlinking .$file_name"
+  # Print the symlinking message
+  echo "Symlinking .$file_name"
 
-	# Set source and destination paths
-	source="$dotfiles_path/$file_name"
-	destination="$HOME/.$file_name"
+  # Set source and destination paths
+  source="$dotfiles_path/$file_name"
+  destination="$HOME/.$file_name"
 
-	# Remove existing destination if present
-	rm -f "$destination"
+  # Remove existing destination if present
+  rm -f "$destination"
 
-	# Create the symlink
-	ln -s "$source" "$destination"
+  # Create the symlink
+  ln -s "$source" "$destination"
 done
-
 
 # Configure Vim
 echo -e "\n\n\033[1;35mConfigure Vim...\033[0m"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 python3 ~/.vim/bundle/YouCompleteMe/install.py --all
-
 
 # Setup DBs
 echo -e "\n\n\033[1;35mSetup Databases...\033[0m"

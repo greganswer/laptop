@@ -2,3 +2,5 @@
 
 # WebStorm
 .idea/
+
+.ruby-lsp

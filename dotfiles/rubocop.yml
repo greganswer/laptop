@@ -1,7 +1,0 @@
-# Omakase Ruby styling for Rails
-inherit_gem: { rubocop-rails-omakase: rubocop.yml }
-
-Layout/IndentationConsistency:
-  Enabled: true
-Layout/EmptyLines:
-  Enabled: true

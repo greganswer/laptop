@@ -24,7 +24,6 @@ plugins=(
 # Import the Environment variables.
 source $ZSH/oh-my-zsh.sh
 source ~/.env
-source ~/.aliases
 source ~/.secrets
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 

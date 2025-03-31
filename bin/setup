@@ -53,6 +53,11 @@ for file in "$dotfiles_path"/*; do
   ln -s "$source" "$destination"
 done
 
+# Configure Tmux
+echo -e "\n\n\033[1;35mConfigure Tmux...\033[0m"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+tmux source ~/.tmux.conf
+
 # Configure Vim
 echo -e "\n\n\033[1;35mConfigure Vim...\033[0m"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim

@@ -1,17 +1,9 @@
----
-description: 
-globs: 
-alwaysApply: false
----
----
-description: 
-globs: 
-alwaysApply: false
----
 # Task List Management
 
 Guidelines for managing task lists in markdown files to track progress on completing a PRD
+
 ## Task Implementation
+
 - **One sub-task at a time:** Do **NOT** start the next sub‑task until you complete the previous
 - **Completion protocol:**  
   1. When you finish a **sub‑task**, immediately mark it as completed by changing `[ ]` to `[x]`.  
@@ -41,3 +33,4 @@ When working with task lists, the AI must:
 4. Keep “Relevant Files” accurate and up to date.
 5. Before starting work, check which sub‑task is next.
 6. After implementing a sub‑task, update the file
+

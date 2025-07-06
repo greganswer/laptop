@@ -1,1 +1,6 @@
-- When committing to git, omit the Claude footer from comments.
+- When committing to git:
+  - First line: a summary, no longer than 50 characters. Use Conventional Commit messages
+  - Second line: blank Body
+  - Additional lines: a brief bulleted list of changes made, if necessary
+  - Lines should be no longer than 72 characters.
+  - Omit the Claude footer from comments.

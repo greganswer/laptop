@@ -1,3 +1,4 @@
+
 # Task List Management
 
 Guidelines for managing task lists in markdown files to track progress on completing a PRD
@@ -8,7 +9,7 @@ Guidelines for managing task lists in markdown files to track progress on comple
 - **Completion protocol:**  
   1. When you finish a **sub‑task**, immediately mark it as completed by changing `[ ]` to `[x]`.  
   2. If **all** subtasks underneath a parent task are now `[x]`, also mark the **parent task** as completed.  
-  3. If **all** parent tasks are now `[x]`, move the PRD `.md` file to `/tasks/archives/` and delete the task file
+  3. If **all** parent tasks are now `[x]`, move the feature folder from `/planning` to `/archive` folder in the root directory. DO NOT move any other files or folders.
   4. Start working on the next sub-task or task in the file. DO NOT wait for user input within the same task
 
 ## Task List Maintenance

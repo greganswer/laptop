@@ -1,0 +1,1 @@
+- When committing to git, omit the Claude footer from comments.

@@ -53,6 +53,11 @@ for file in "$dotfiles_path"/*; do
   ln -s "$source" "$destination"
 done
 
+# Configure Claude
+ln -s ~/src/laptop/claude/commands ~/.claude/commands
+ln -s ~/src/laptop/claude/CLAUDE.md ~/.claude/CLAUDE.md
+ln -s ~/src/laptop/claude/settings.json ~/.claude/settings.json
+
 # Configure Tmux
 echo -e "\n\n\033[1;35mConfigure Tmux...\033[0m"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

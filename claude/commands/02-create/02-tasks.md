@@ -7,7 +7,7 @@ To guide an AI assistant in creating a detailed, step-by-step task list in Markd
 ## Output
 
 - **Format:** Markdown (`.md`)
-- **Location:** In the same location as the provided `prd.md` file. Most likely something like `/planning/[feature-name]/` (e.g., `planning/user-profile-editing/`)
+- **Location:** In the same location as the provided `PRD.md` file. Most likely something like `/planning/[feature-name]/` (e.g., `planning/user-profile-editing/`)
 - **Filename:** `tasks.md`
 
 ## Process

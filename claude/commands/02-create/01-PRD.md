@@ -49,7 +49,7 @@ Assume the primary reader of the PRD is a **junior developer**. Therefore, requi
 
 * **Format:** Markdown (`.md`)
 * **Location:** In the same location as the provided `requirements.md` file. Most likely something like `/planning/[feature-name]/` (e.g., `planning/user-profile-editing/`)
-* **Filename:** `prd.md`
+* **Filename:** `PRD.md`
 
 ## Final instructions
 

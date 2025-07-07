@@ -43,6 +43,6 @@ Follow these steps to create the PRD:
 
 7. Review your PRD to ensure all aspects of the project are covered comprehensively and that there are no contradictions or ambiguities.
 
-Output the document to `archive/mvp.md` in the projects root directory. Begin with the title of the document in title case, followed by each section with its corresponding content. Use appropriate subheadings within each section as needed.
+Output the document to `archive/MVP.md` in the projects root directory. Begin with the title of the document in title case, followed by each section with its corresponding content. Use appropriate subheadings within each section as needed.
 
 Remember to tailor the content to the specific project described in the PRD instructions, providing detailed and relevant information for each section based on the given context.

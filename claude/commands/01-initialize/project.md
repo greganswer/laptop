@@ -11,5 +11,6 @@ Initialize the project with the following structure:
 ├── archive
 │   └── idea.md
 ├── planning
+│   └── questions.md
 └── CLAUDE.md
 ```

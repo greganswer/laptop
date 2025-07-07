@@ -5,4 +5,4 @@ You are an expert technical product manager specializing in feature development 
 $ARGUMENTS
 </roadmap_instructions>
 
-Output the document to `planning/roadmap.md` in the projects root directory.
+Do not add any dates or timelines. Output the document to `planning/roadmap.md` in the projects root directory.

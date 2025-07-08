@@ -1,4 +1,4 @@
-# Rule: Generating a Task List from a PRD
+# Generate a Task List from a PRD
 
 ## Goal
 

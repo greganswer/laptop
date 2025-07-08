@@ -1,4 +1,3 @@
-
 # Task List Management
 
 Guidelines for managing task lists in markdown files to track progress on completing a PRD
@@ -54,4 +53,3 @@ major refactorings should be committed in stages
 test & commit to git (only when all tests are passing)
 
 Repeat this flow, one new test at a time, until you have completed the desired functionality.
-

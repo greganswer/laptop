@@ -1,4 +1,4 @@
-# Rule: Generating files and folders from an MVP
+# Generate files and folders from an MVP
 
 ## Goal
 

@@ -37,7 +37,8 @@ The generated PRD should include the following sections:
 6. **Design Considerations (Optional):** Link to mockups, describe UI/UX requirements, or mention relevant components/styles if applicable.
 7. **Technical Considerations (Optional):** Mention any known technical constraints, dependencies, or suggestions (e.g., "Should integrate with the existing Auth module").
 8. **Success Metrics:** How will the success of this feature be measured? (e.g., "Increase user engagement by 10%", "Reduce support tickets related to X").
-9. **Open Questions:** List any remaining questions or areas needing further clarification.
+9. **Risk Management:** "Business Risks" and "Technical Risks" sub sections. Add headers for "Risk, Impact, Probability, Mitigation Strategy"
+10. **Open Questions:** List any remaining questions or areas needing further clarification.
 
 Also add a table of contents at the top of the document.
 

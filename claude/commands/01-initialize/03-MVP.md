@@ -20,6 +20,7 @@ Follow these steps to create the PRD:
    f. User Stories and Acceptance Criteria
    g. Technical Requirements / Stack
    h. Design and User Interface
+   i. Success Metrics
 
 4. For each section, provide detailed and relevant information based on the PRD instructions. Ensure that you:
    - Use clear and concise language

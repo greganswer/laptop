@@ -15,5 +15,169 @@ Initialize the project with the following structure:
 └── CLAUDE.md
 ```
 
-- Add a Ruby on Rails `.gitignore` file to the backend folder
-- Add a Next.js `.gitignore` file to the frontend folder
+- Add a Next.js `frontend/.gitignore` file
+- Add a Ruby on Rails `backend/.gitignore` file
+
+Ensure `backend/Gemfile` includes the following:
+
+```ruby
+gem "active_model_serializers"
+gem "dotenv-rails"
+gem "kaminari" # pagination
+gem "lograge"
+gem "pundit", "~> 2.3"
+gem "rack-cors" 
+gem "redis"
+
+group :development, :test do
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "rspec-rails"
+  gem "rubocop-rspec", require: false
+  gem "rubocop-rspec_rails", require: false
+end
+
+group :test do
+  gem "pundit-matchers"
+  gem "rspec-sidekiq"
+  gem "shoulda-matchers"
+end
+```
+
+Ensure `frontend/CLAUDE.md` includes the following:
+
+```markdown
+# Frontend Claude rules
+
+- Always use shadcn components
+- Use strict TypeScript with explicit return types
+- Define interfaces for all data structures
+- Use meaningful component and variable names
+- Prefer async/await over promise chains
+- Use TSDoc for component documentation
+```
+
+Ensure `backend/CLAUDE.md` includes the following:
+
+```markdown
+# Backend Claude Rules
+
+## 1. Core Principles
+- RESTful endpoints (e.g., `GET /users?search=jo`).
+- Pundit guards every action.
+- Skinny controllers; fat models and service objects.
+
+## 2. Code Organization
+- Queries live in models: `User.search(params)`.
+- Business logic lives in `app/commands`.
+- Shared behavior → concerns.
+- Long-running work → Sidekiq jobs.
+
+## 3. Style & Conventions
+- Idiomatic Ruby 3.x; follow Rails guides.
+- `snake_case` files & methods, `CamelCase` classes.
+- No duplicated code; prefer modules/iterations.
+
+## 4. Error Handling
+- Raise only for exceptional cases.
+- Model validations + helpful messages.
+- Log errors with context.
+
+## 5. Performance
+- Add indexes.
+- Eager-load to kill N+1.
+- Use `includes`, `joins`, `select` wisely.
+
+## 6. Testing
+- RSpec (FactoryBot, Shoulda, Pundit, Sidekiq).
+- TDD/BDD preferred.
+
+## 7. Security
+- Devise (Token/JWT) + Pundit.
+- Strong params.
+- Guard against XSS, CSRF, SQLi.
+
+## 8. Stack Snapshot
+- Rails 8.0.1 + PostgreSQL + Redis.
+- JSON: ActiveModel::Serializer, Kaminari pagination, Rack-CORS.
+- Background: Sidekiq (+ Cron).
+- Payments: Pay + Stripe.
+- Auditing: Paranoia, PaperTrail.
+- Dev/Test: RSpec, Faker, RuboCop, Brakeman, Lograge.
+
+## 9. Configuration
+- `.env` via Dotenv.
+```
+
+Ensure `backend/spec/CLAUDE.md` includes the following:
+
+```markdown
+# Backend Tests
+
+## RSpec Best Practices (betterspecs.org)
+
+### Testing Structure and Organization
+
+1. **Describe your methods** - Keep your description clear and concise
+2. **Use context blocks** - Group related tests together with context
+3. **Use shared examples** - DRY your test suite up with shared examples
+4. **Test valid, edge and invalid cases** - Cover all possible inputs
+5. **Use factories, not fixtures** - Prefer Factory Bot for test data
+6. **Use Subject for the Object Under Test** - Explicitly define the subject when helpful
+
+### Modern RSpec Syntax
+
+- **Use expect syntax** - Always use `expect().to` over `should`
+- **Configure RSpec** - Only accept the new syntax to avoid mixing syntaxes
+- **Use readable matchers** - Choose descriptive matchers like `be_empty` over `eq([])`
+- **Shoulda matchers** - Prefer Shoulda matchers when available
+
+### Data Management in Tests
+
+- **Use let statements** - Prefer `let` over instance variables in `before` blocks
+- **Avoid before(:all)** - Prevents data leakage between tests
+- **Use let! for side effects** - When you need eager evaluation
+- **Keep setup minimal** - Only create what's needed for the test
+
+### Test Organization
+
+- **One assertion per test** - Each test should verify one behavior
+- **Use descriptive test names** - Names should explain what is being tested
+- **Group related tests** - Use `describe` and `context` blocks effectively
+- **Test behavior, not implementation** - Focus on what the code does, not how
+
+### Model Testing
+
+- **Test validations** - Verify all model validations work correctly
+- **Test associations** - Ensure relationships are properly defined
+- **Test scopes** - Verify named scopes return expected results
+- **Test callbacks** - Ensure callbacks execute as expected
+
+### Controller Testing
+
+- **Test requests** - Prefer request specs over controller specs
+- **Test responses** - Verify HTTP status codes and response formats
+- **Test redirects** - Ensure proper redirection behavior
+- **Test authorization** - Verify access control works correctly
+- **Avoid over-testing** - Focus on controller-specific logic
+
+### Integration Testing
+
+- **Test user workflows** - Verify complete user journeys
+- **Test edge cases** - Verify error handling and edge conditions
+- **Keep tests independent** - Each test should be able to run in isolation
+
+### Performance and Maintenance
+
+- **Keep tests fast** - Use tools like `database_cleaner` efficiently
+- **Use shared contexts** - Reduce duplication with shared setup
+- **Mock external services** - Use stubs and mocks for external dependencies
+- **Regular refactoring** - Keep test code clean and maintainable
+
+### Tools and Configuration
+
+- **Use fuubar** - Better test output formatting
+- **Configure database_cleaner** - Proper test database cleanup
+- **Use shoulda-matchers** - Simplify common Rails testing patterns
+- **Set up CI/CD** - Automate test running and reporting
+```

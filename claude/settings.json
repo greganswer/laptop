@@ -8,7 +8,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say 'Greg, I need your input.'"
+            "command": "say 'Greg, I need your input'"
           }
         ]
       }
@@ -30,11 +30,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [[ \"${TOOL_INPUT_file_path}\" == *.rb ]]; then rubocop -A \"$TOOL_INPUT_file_path\"; fi"
+            "command": "for f in $CLAUDE_FILE_PATHS; do [[ $f == *.rb ]] && rubocop -A \"$f\"; done"
           },
           {
             "type": "command",
-            "command": "if [[ \"${TOOL_INPUT_file_path}\" == *.ts ]]; then npx prettier -w \"$TOOL_INPUT_file_path\"; fi"
+            "command": "for f in $CLAUDE_FILE_PATHS; do [[ $f == *.ts || $f == *.tsx ]] && npx prettier -w \"$f\"; done"
           }
         ]
       }
@@ -45,6 +45,8 @@
       "Bash(bin/rails:*)",
       "Bash(bin/rubocop:*)",
       "Bash(bundle:*)",
+      "Bash(cp:*)",
+      "Bash(echo:*)",
       "Bash(find:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
@@ -54,10 +56,12 @@
       "Bash(mkdir:*)",
       "Bash(mv:*)",
       "Bash(mv:*)",
+      "Bash(npm install:*)",
       "Bash(npm run build:*)",
       "Bash(npm run lint)",
       "Bash(npm test:*)",
       "Bash(npx:*)",
+      "Bash(sed:*)",
       "Bash(rails routes)",
       "Bash(rails:*)"
     ],

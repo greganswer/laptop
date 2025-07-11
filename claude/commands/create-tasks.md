@@ -6,9 +6,11 @@ To guide an AI assistant in creating a detailed, step-by-step task list in Markd
 
 ## Output
 
+The desired output is 2 markdown files specific to frontend and backend tasks, each containing:
+
 - **Format:** Markdown (`.md`)
 - **Location:** In the same location as the provided `PRD.md` file. Most likely something like `/planning/[feature-name]/` (e.g., `planning/user-profile-editing/`)
-- **Filename:** `tasks.md`
+- **Filename:** `frontend-tasks.md` `backend-tasks.md`
 
 ## Process
 

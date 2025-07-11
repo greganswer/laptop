@@ -1,6 +1,32 @@
 {
-  "model": "sonnet",
   "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(bin/rails:*)",
+      "Bash(bin/rubocop:*)",
+      "Bash(bundle:*)",
+      "Bash(cp:*)",
+      "Bash(echo:*)",
+      "Bash(find:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git init:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(mv:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run lint)",
+      "Bash(npm test:*)",
+      "Bash(npx:*)",
+      "Bash(sed:*)",
+      "Bash(rails routes)",
+      "Bash(rails:*)"
+    ],
+    "deny": []
+  },
   "hooks": {
     "Notification": [
       {
@@ -39,32 +65,5 @@
         ]
       }
     ]
-  },
-  "permissions": {
-    "allow": [
-      "Bash(bin/rails:*)",
-      "Bash(bin/rubocop:*)",
-      "Bash(bundle:*)",
-      "Bash(cp:*)",
-      "Bash(echo:*)",
-      "Bash(find:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git init:*)",
-      "Bash(grep:*)",
-      "Bash(ls:*)",
-      "Bash(mkdir:*)",
-      "Bash(mv:*)",
-      "Bash(mv:*)",
-      "Bash(npm install:*)",
-      "Bash(npm run build:*)",
-      "Bash(npm run lint)",
-      "Bash(npm test:*)",
-      "Bash(npx:*)",
-      "Bash(sed:*)",
-      "Bash(rails routes)",
-      "Bash(rails:*)"
-    ],
-    "deny": []
   }
 }

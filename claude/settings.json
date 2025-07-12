@@ -27,6 +27,7 @@
     ],
     "deny": []
   },
+  "model": "sonnet",
   "hooks": {
     "Notification": [
       {

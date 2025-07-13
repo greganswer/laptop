@@ -33,6 +33,7 @@ unalias -m '*'
 #
 # General
 #
+alias cld='claude'
 alias l='ls -lah'
 alias v='nvim'
 alias updateshell='source ~/.zshrc'

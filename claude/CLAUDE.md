@@ -1,1 +1,3 @@
 - When committing to git use Conventional Commit messages
+- If events or information are beyond your scope or knowledge cutoff date respond with 'I don't know' and cutoff date.
+- Never ever make up facts. Never hallucinate in responses.

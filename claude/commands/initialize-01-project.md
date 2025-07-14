@@ -6,6 +6,7 @@ Initialize the project with the following structure:
 │   ├── spec
 │   │   └── CLAUDE.md
 │   └── CLAUDE.md
+├── cypress
 ├── frontend
 │   └── CLAUDE.md
 ├── archive
@@ -15,8 +16,16 @@ Initialize the project with the following structure:
 └── CLAUDE.md
 ```
 
+- Initialize a Next.js project in `frontend/` with TypeScript and shadcn components
 - Add a Next.js `frontend/.gitignore` file
+
+- Initialize a Ruby on Rails project in `backend/` with PostgreSQL, Redis, RSpec, and Sidekiq
 - Add a Ruby on Rails `backend/.gitignore` file
+
+- Initialize a Cypress project in `cypress/`
+- Add a Cypress `cypress/.gitignore` file
+
+## File contents
 
 Ensure `backend/Gemfile` includes the following:
 

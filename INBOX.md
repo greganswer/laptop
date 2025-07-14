@@ -1,10 +1,9 @@
+# Inbox
 
 ## Claude Code hooks
 
 In the `claude/settings.json` file, please create the following hooks:
 
-- When Claude Code is awaiting my input, then say "Greg, I need your input."
-- When Claude Code finishes a task, then say "Task Complete."
 - When Claude Code finishes writing to a ruby file, then run Rubocop on that file.
 - When Claude Code finishes writing to a TypeScript file, then run prettier on that file.
 
@@ -32,3 +31,10 @@ major refactorings should be committed in stages
 test & commit to git (only when all tests are passing)
 
 Repeat this flow, one new test at a time, until you have completed the desired functionality.
+
+## Tasks
+
+- [ ] Update the Task command to
+  - [ ] Create a new branch at the start
+  - [ ] Commit after each parent task is completed
+  - [ ] Create a new PR on completion

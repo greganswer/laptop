@@ -20,6 +20,7 @@
       "Bash(npx:*)",
       "Bash(rails routes)",
       "Bash(rails:*)",
+      "Bash(ruby:*)",
       "Bash(sed:*)",
       "Bash(timeout:*)"
     ],
@@ -48,21 +49,7 @@
           }
         ]
       }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "for f in $CLAUDE_FILE_PATHS; do [[ $f == *.rb ]] && rubocop -A \"$f\"; done"
-          },
-          {
-            "type": "command",
-            "command": "for f in $CLAUDE_FILE_PATHS; do [[ $f == *.ts || $f == *.tsx ]] && npx prettier -w \"$f\"; done"
-          }
-        ]
-      }
     ]
   }
 }
+

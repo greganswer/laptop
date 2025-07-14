@@ -13,7 +13,7 @@ To guide an AI assistant in creating a detailed Product Requirements Document (P
 
 ## Clarifying Questions (Examples)
 
-The AI should adapt its questions based on the prompt, but here are some common areas to explore:
+The AI should adapt its questions based on the prompt. The AI should review any existing `MVP.md` files before asking any questions. Here are some common areas to explore:
 
 * **Problem/Goal:** "What problem does this feature solve for the user?" or "What is the main goal we want to achieve with this feature?"
 * **Target User:** "Who is the primary user of this feature?"

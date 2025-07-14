@@ -1,3 +1,7 @@
+# Project Initialization Command
+
+Use sub agents where applicable.
+
 Initialize the project with the following structure:
 
 ```plain
@@ -13,13 +17,15 @@ Initialize the project with the following structure:
 │   └── idea.md
 ├── planning
 │   └── questions.md
-└── CLAUDE.md
+├── CLAUDE.md
+├── Profile.dev
+└── start.sh
 ```
 
-- Initialize a Next.js project in `frontend/` with TypeScript and shadcn components
+- Initialize a Next.js 15+ project in `frontend/` with TypeScript and shadcn components
 - Add a Next.js `frontend/.gitignore` file
 
-- Initialize a Ruby on Rails project in `backend/` with PostgreSQL, Redis, RSpec, and Sidekiq
+- Initialize a Ruby on Rails 8+ project in `backend/` with PostgreSQL, Redis, RSpec, and Sidekiq
 - Add a Ruby on Rails `backend/.gitignore` file
 
 - Initialize a Cypress project in `cypress/`
@@ -27,7 +33,20 @@ Initialize the project with the following structure:
 
 ## File contents
 
-Ensure `backend/Gemfile` includes the following:
+Ensure `start.sh` includes the following:
+
+```sh
+lsof -ti:3001 -ti:3000 | xargs kill -9 && foreman start -f Procfile.dev
+```
+
+Ensure `Procfile.dev` includes the following:
+
+```yaml
+backend: cd backend && RAILS_LOG_LEVEL=info bundle exec rails s -p 3000
+frontend: cd frontend && PORT=3001 npm run dev
+```
+
+Ensure `backend/Gemfile` includes the following (merge any existing groups):
 
 ```ruby
 gem "active_model_serializers"

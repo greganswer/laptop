@@ -25,7 +25,20 @@
       "Bash(sed:*)",
       "Bash(timeout:*)"
     ],
-    "deny": []
+    "deny": [
+      "Read(**/*.cert)",
+      "Read(**/*.crt)",
+      "Read(**/*.key)",
+      "Read(**/*.pem)",
+      "Read(**/.env*)",
+      "Read(**/.secret*)",
+      "Read(**/credentials/**)",
+      "Read(**/id_ed25519*)",
+      "Read(**/id_rsa*)",
+      "Read(**/node_modules/**)",
+      "Read(**/secrets/**)",
+      "Read(.env)"
+    ]
   },
   "model": "sonnet",
   "hooks": {
@@ -53,4 +66,3 @@
     ]
   }
 }
-

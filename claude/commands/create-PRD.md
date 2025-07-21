@@ -13,7 +13,7 @@ To guide an AI assistant in creating a detailed Product Requirements Document (P
 
 ## Clarifying Questions (Examples)
 
-The AI should adapt its questions based on the prompt. The AI should review any existing `MVP.md` files before asking any questions. Here are some common areas to explore:
+The AI should adapt its questions based on the prompt. The AI should review any existing `MVP.md` and `CLAUDE.md` files (in any folder) before asking any questions. Here are some common areas to explore:
 
 * **Problem/Goal:** "What problem does this feature solve for the user?" or "What is the main goal we want to achieve with this feature?"
 * **Target User:** "Who is the primary user of this feature?"
@@ -55,5 +55,6 @@ Assume the primary reader of the PRD is a **junior developer**. Therefore, requi
 ## Final instructions
 
 1. Do NOT start implementing the PRD
-2. Make sure to ask the user clarifying questions
-3. Take the user's answers to the clarifying questions and improve the PRD
+1. ALWAYS search the whole project for all `CLAUDE.md` files (in `frontend`, `backend`, etc.)
+1. Make sure to ask the user clarifying questions
+1. Take the user's answers to the clarifying questions and improve the PRD

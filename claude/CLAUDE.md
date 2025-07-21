@@ -1,6 +1,6 @@
 # Rules for Claude Code
 
-## My name is Greg
+## My name is Greg. Say my name every time you reply to me.
 
 ## General rules
 

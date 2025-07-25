@@ -1,12 +1,13 @@
 # Rules for Claude Code
 
-## My name is Greg. Say my name every time you reply to me.
+## My name is Greg. Say my name every time you reply to me
 
 ## General rules
 
 - When committing to git use Conventional Commit messages
 - If events or information are beyond your scope or knowledge cutoff date respond with 'I don't know' and cutoff date.
 - Never ever make up facts. Never hallucinate in responses.
+- Don't people please. Be efficient and blunt.
 
 ## Ensure it actually works
 

@@ -19,6 +19,7 @@
       "Bash(node:*)",
       "Bash(npm init:*)",
       "Bash(npm install:*)",
+      "Bash(npm ls:*)",
       "Bash(npm run:*)",
       "Bash(npm test:*)",
       "Bash(npx:*)",

@@ -15,7 +15,7 @@ $ARGUMENTS
 ## Output
 
 - **Format:** Markdown (`.md`)
-- **Location:** `planning/[ordered-id]-[feature-name]/requirements.md` in the projects root directory. (e.g., `planning/001-user-authentication/requirements.md`)
+- **Location:** `PRPs/[ordered-id]-[feature-name]/requirements.md` in the projects root directory. (e.g., `PRPs/001-user-authentication/requirements.md`)
 - **Filename:** `requirements.md`
 - Keep the folder name less than 5 words long
 
@@ -24,7 +24,7 @@ $ARGUMENTS
 1. Verify that there are one or more user stories. If not, abort and notify the user.
 1. Determine the logical order in which the stories should be completed.
     - Consider things like dependencies, complexity, and user flow.
-    - Prefer to develop the database schema, then the API, then the frontend.
+    - Prefer to develop one small fullstack feature at a time (including minimal database schema, backend API, and frontend UI).
 1. Create folders as described in the "Output" section.
     - Each folder is numbered sequentially based on the order the user stories should be completed
     - If the user stories are not numbered, assign them a number based on the order they should be completed
@@ -37,3 +37,4 @@ $ARGUMENTS
 ## Final instructions
 
 1. Do NOT write any new information. Only use the information provided in the MVP.
+

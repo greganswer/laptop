@@ -10,13 +10,13 @@ Initialize the project with the following structure:
 │   ├── spec
 │   │   └── CLAUDE.md
 │   └── CLAUDE.md
-├── cypress
+├── e2e
 ├── frontend
 │   └── CLAUDE.md
-├── archive
-│   └── idea.md
-├── planning
-│   └── questions.md
+├── PRPs
+│   └── archive
+│       └── MVP
+│           └── requirements.md
 ├── CLAUDE.md
 ├── Profile.dev
 └── start.sh
@@ -25,11 +25,13 @@ Initialize the project with the following structure:
 - Initialize a Next.js 15+ project in `frontend/` with TypeScript and shadcn components
 - Add a Next.js `frontend/.gitignore` file
 
-- Initialize a Ruby on Rails 8+ project in `backend/` with PostgreSQL, Redis, RSpec, and Sidekiq
+- Initialize a Ruby on Rails 8+ API only project in `backend/` with PostgreSQL, Redis, RSpec, and Sidekiq
 - Add a Ruby on Rails `backend/.gitignore` file
+- Remove the `backend/test` folder
 
-- Initialize a Cypress project in `cypress/`
-- Add a Cypress `cypress/.gitignore` file
+- Initialize a Playwright project in `e2e/`
+- Add a Playwright `e2e/.gitignore` file
+- Ensure Playwight is configured to take screenshots on failure
 
 ## File contents
 
@@ -70,6 +72,62 @@ group :test do
   gem "rspec-sidekiq"
   gem "shoulda-matchers"
 end
+```
+
+Ensure `backend/.rubocop.yml` includes the following:
+
+```yaml
+# https://github.com/rubocop/ruby-style-guide
+
+# Omakase Ruby styling for Rails
+inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+
+require:
+  - rubocop-rspec
+  - rubocop-rspec_rails
+
+ExtraSpacing:
+  Enabled: true
+
+# Layout
+# https://docs.rubocop.org/rubocop/cops_layout.html
+Layout/IndentationConsistency:
+  Enabled: true
+  EnforcedStyle: normal
+Layout/IndentationWidth:
+  Enabled: true
+Layout/EmptyLines:
+  Enabled: true
+Layout/MultilineHashBraceLayout:
+  Enabled: true
+Layout/MultilineHashKeyLineBreaks:
+  Enabled: true
+Layout/ArgumentAlignment:
+  Enabled: true
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: true
+  EnforcedStyle: around
+Layout/EmptyLineBetweenDefs:
+  Enabled: true
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+Layout/AccessModifierIndentation:
+  Enabled: true
+Layout/SpaceAroundOperators:
+  Enabled: true
+
+# Style
+Style/BlockComments:
+  Enabled: false
+
+# RSpec
+RSpec/EmptyLineAfterHook:
+  Enabled: true
+  AllowConsecutiveOneLiners: false
+RSpec/EmptyLineAfterSubject:
+  Enabled: true
+RSpec/EmptyLineAfterFinalLet:
+  Enabled: true
 ```
 
 Ensure `frontend/CLAUDE.md` includes the following:

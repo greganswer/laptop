@@ -10,6 +10,7 @@
       "Bash(diff:*)",
       "Bash(echo:*)",
       "Bash(find:*)",
+      "Bash(gh:*)",
       "Bash(git:*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
@@ -28,7 +29,11 @@
       "Bash(rubocop:*)",
       "Bash(ruby:*)",
       "Bash(sed:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "WebFetch(domain:dev.to)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:ui.shadcn.com)"
     ],
     "deny": [
       "Read(**/*.cert)",
@@ -71,3 +76,4 @@
     ]
   }
 }
+

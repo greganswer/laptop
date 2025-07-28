@@ -193,6 +193,7 @@ Ensure `backend/CLAUDE.md` includes the following:
 
 ## 9. Configuration
 - `.env` via Dotenv.
+- Always read environment variables with `ENV.fetch` and raise an error if not set
 
 ## 10. Test Driven Development (TDD)
 

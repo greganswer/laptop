@@ -215,6 +215,21 @@ Repeat this flow, one new test at a time, until you have completed the desired f
 
 ```
 
+Ensure `backend/spec/rails_helper.rb` includes the following:
+
+```ruby
+  # Call `create` instead of `FactoryBot.create` in spec files
+  config.include FactoryBot::Syntax::Methods
+  
+  # Shoulda matchers. https://matchers.shoulda.io/docs/v6.4.0
+  Shoulda::Matchers.configure do |config|
+   config.integrate do |with|
+     with.test_framework :rspec
+     with.library :rails
+   end
+ end
+```
+
 Ensure `backend/spec/CLAUDE.md` includes the following:
 
 ```markdown

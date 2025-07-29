@@ -30,6 +30,7 @@
       "Bash(ruby:*)",
       "Bash(sed:*)",
       "Bash(timeout:*)",
+      "Bash(tree:*)",
       "WebFetch(domain:dev.to)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:medium.com)",
@@ -76,4 +77,3 @@
     ]
   }
 }
-

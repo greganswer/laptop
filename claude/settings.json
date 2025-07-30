@@ -3,6 +3,7 @@
   "permissions": {
     "allow": [
       "Bash(bin/rails:*)",
+      "Bash(bin/rspec:*)",
       "Bash(bin/rubocop:*)",
       "Bash(bundle:*)",
       "Bash(cat:*)",
@@ -22,6 +23,7 @@
       "Bash(npm install:*)",
       "Bash(npm ls:*)",
       "Bash(npm run:*)",
+      "Bash(npm start)",
       "Bash(npm test:*)",
       "Bash(npx:*)",
       "Bash(rails routes)",
@@ -77,3 +79,4 @@
     ]
   }
 }
+

@@ -20,25 +20,26 @@ $ARGUMENTS
 
 ## Process
 
-Read the input and come up with a feature name. Use less than 5 words.
-Extract the feature into the following format:
+1. Truncate or create the output file
+1. Read the input and come up with a feature name. Use less than 5 words.
+1. Extract the feature into the following format:
 
 ```md
 # <FEATURE_NAME>
 
-## FEATURE:
+## FEATURE
 
 [Describe what you want to build - be specific about functionality and requirements]
 
-## EXAMPLES:
+## EXAMPLES
 
 [List any example files in the examples/ folder and explain how they should be used]
 
-## DOCUMENTATION:
+## DOCUMENTATION
 
 [Include links to relevant documentation, APIs, or MCP server resources]
 
-## OTHER CONSIDERATIONS:
+## OTHER CONSIDERATIONS
 
 [Mention any gotchas, specific requirements, or things AI assistants commonly miss]
 ```

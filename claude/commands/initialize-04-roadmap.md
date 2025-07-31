@@ -1,4 +1,4 @@
-# Generate files and folders from an MVP
+# Generate PRP files from an MVP
 
 ## Goal
 
@@ -15,9 +15,9 @@ $ARGUMENTS
 ## Output
 
 - **Format:** Markdown (`.md`)
-- **Location:** `PRPs/[ordered-id]-[feature-name]/requirements.md` in the projects root directory. (e.g., `PRPs/001-user-authentication/requirements.md`)
-- **Filename:** `requirements.md`
-- Keep the folder name less than 5 words long
+- **Location:** `PRPs` in the root directory
+- **Filename:** `[ordered-id]-feature-[feature-name].md`. (e.g., `001-feature-user-authentication.md`)
+- Keep the feature name less than 5 words long
 
 ## Process
 
@@ -25,11 +25,11 @@ $ARGUMENTS
 1. Determine the logical order in which the stories should be completed.
     - Consider things like dependencies, complexity, and user flow.
     - Prefer to develop one small fullstack feature at a time (including minimal database schema, backend API, and frontend UI).
-1. Create folders as described in the "Output" section.
-    - Each folder is numbered sequentially based on the order the user stories should be completed
+1. Create files as described in the "Output" section.
+    - Each file is numbered sequentially based on the order the user stories should be completed
     - If the user stories are not numbered, assign them a number based on the order they should be completed
-    - If the location already contains any folders with a number, increment the highest number by 1 and create new folders sequentially
-1. Use subagents to add the relevant content to the `requirements.md` file in each folder, including:
+    - If the location already contains any files with a number, increment the highest number by 1 and create new files sequentially
+1. Use subagents to add the relevant content to the correct files, including:
     - A brief overview of the feature
     - The user stories in Gherkin format with Acceptance Criteria beneath each story
     - Any relevant information from the `<mvp>` section that is needed to complete the feature
@@ -37,4 +37,3 @@ $ARGUMENTS
 ## Final instructions
 
 1. Do NOT write any new information. Only use the information provided in the MVP.
-

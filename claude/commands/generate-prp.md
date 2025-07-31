@@ -62,9 +62,14 @@ uv run pytest tests/ -v
 
 ## Output
 
-If given a `requirements.md` file, save the PRP in the same location.
+- Each file is numbered sequentially based on the order the feature should be completed
+- If the files are not numbered, assign them a number based on the order they should be completed
+- If the location already contains any files with a number, increment the highest number by 1 and create new files sequentially
 
-Save as: `PRPs/{feature-name}/prp.md`
+- **Format:** Markdown (`.md`)
+- **Location:** `PRPs` in the root directory
+- **Filename:** `[ordered-id]-[feature-name].md`. (e.g., `001-user-authentication.md`)
+- Keep the feature name less than 5 words long
 
 ## Quality Checklist
 

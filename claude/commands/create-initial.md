@@ -10,7 +10,7 @@ To guide an AI assistant in creating a feature request markdown file.
 
 ## Input
 
-The user will provide the feature request contents or file name.
+The user will provide the feature request contents or file name. Ultrathink
 
 <feature>
 $ARGUMENTS

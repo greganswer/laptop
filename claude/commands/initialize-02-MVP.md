@@ -51,4 +51,4 @@ Follow these steps to create the PRD:
 
 Output the document to `PRPs/archive/MVP.md` in the projects root directory. Begin with the title of the document in title case, followed by each section with its corresponding content. Use appropriate subheadings within each section as needed.
 
-Remember to tailor the content to the specific project described in the PRD instructions, providing detailed and relevant information for each section based on the given context.
+Remember to tailor the content to the specific project described in the PRD instructions, providing detailed and relevant information for each section based on the given context. Ultrathink.

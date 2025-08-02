@@ -41,3 +41,4 @@ $ARGUMENTS
 ## Final instructions
 
 1. Do NOT write any new information. Only use the information provided in the MVP.
+1. Ultrathink

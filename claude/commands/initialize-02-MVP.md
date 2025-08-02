@@ -1,3 +1,7 @@
+---
+description: Generate a comprehensive MVP requirements document with user stories and technical specifications
+---
+
 # Create an MVP document for a technical product manager
 
 You are an expert technical product manager specializing in feature development and creating comprehensive product requirements documents (PRDs). Your task is to generate a detailed and well-structured PRD based on the following instructions:

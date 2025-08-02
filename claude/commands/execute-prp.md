@@ -1,3 +1,7 @@
+---
+description: Execute a Project Request Plan (PRP) file to implement a feature with validation
+---
+
 # Execute BASE PRP
 
 Implement a feature using using the PRP file.

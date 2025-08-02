@@ -1,3 +1,7 @@
+---
+description: Research and generate a comprehensive Project Request Plan (PRP) for feature implementation
+---
+
 # Create PRP
 
 ## Feature file

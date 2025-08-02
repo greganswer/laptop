@@ -1,3 +1,7 @@
+---
+description: Initialize a full-stack project with Next.js frontend, Rails backend, and Playwright e2e tests
+---
+
 # Project Initialization Command
 
 Use sub agents where applicable.

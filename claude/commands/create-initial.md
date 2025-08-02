@@ -1,3 +1,7 @@
+---
+description: Generate a structured feature request markdown file from user input
+---
+
 # Generate feature request
 
 ## Goal

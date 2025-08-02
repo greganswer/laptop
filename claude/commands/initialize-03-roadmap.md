@@ -1,3 +1,7 @@
+---
+description: Break down an MVP document into organized PRP files for sequential feature development
+---
+
 # Generate PRP files from an MVP
 
 ## Goal

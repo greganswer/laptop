@@ -1,7 +1,7 @@
 #
 # Exports
 #
-export VISUAL="vim"     # -w causes terminal to wait till file is closed
+export VISUAL="nvim"     # -w causes terminal to wait till file is closed
 export EDITOR="$VISUAL" # export EDITOR=nano # For Linux
 
 

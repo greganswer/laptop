@@ -313,3 +313,61 @@ Ensure `backend/spec/CLAUDE.md` includes the following:
 - **Use shoulda-matchers** - Simplify common Rails testing patterns
 - **Set up CI/CD** - Automate test running and reporting
 ```
+
+Ensure `e2e/CLAUDE.md` contains the following:
+
+```md
+# E2E Testing Guidelines
+
+## Project Context
+
+This is a TypeScript project using Playwright for end-to-end testing.
+
+## Test Strategy
+
+- Focus on critical user journeys (authentication, core workflows)
+- Validate complete user flows from start to finish
+- Test both happy paths and error scenarios
+- Use API mocking for reliable, isolated tests
+
+## Best Practices
+
+- **Selectors**: Use `data-testid` attributes or semantic selectors
+- **Structure**: Group related tests in `test.describe` blocks
+- **Setup**: Use `test.beforeEach` for common setup
+- **Mocking**: Mock API calls with `page.route` for consistency
+- **Naming**: Write descriptive test names that explain the behavior
+- **Focus**: Keep test files to 3-5 focused tests maximum
+
+## Example Test Structure
+
+```typescript
+import { expect, test } from '@playwright/test';
+
+test.describe('Feature Name', () => {
+  test.beforeEach(async ({ page }) => {
+    // Mock API responses
+    await page.route('/api/endpoint', (route) => {
+      route.fulfill({
+        status: 200,
+        body: JSON.stringify({ data: 'mock response' }),
+      });
+    });
+
+    await page.goto('/feature-page');
+  });
+
+  test('should handle successful user action', async ({ page }) => {
+    await page.locator('[data-testid="action-button"]').click();
+    await expect(page.locator('[data-testid="success-message"]')).toBeVisible();
+  });
+
+  test('should display error for invalid input', async ({ page }) => {
+    await page.locator('[data-testid="input"]').fill('invalid-data');
+    await page.locator('[data-testid="submit"]').click();
+    await expect(page.locator('[data-testid="error-message"]')).toBeVisible();
+  });
+});
+```
+
+```

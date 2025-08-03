@@ -27,6 +27,7 @@
       "Bash(npm start)",
       "Bash(npm test:*)",
       "Bash(npx:*)",
+      "Bash(pgrep:*)",
       "Bash(rails routes)",
       "Bash(rails:*)",
       "Bash(rubocop:*)",
@@ -37,6 +38,7 @@
       "Bash(tree:*)",
       "WebFetch(domain:dev.to)",
       "WebFetch(domain:github.com)",
+      "WebFetch(domain:keepachangelog.com)",
       "WebFetch(domain:medium.com)",
       "WebFetch(domain:ui.shadcn.com)"
     ],

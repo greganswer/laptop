@@ -19,7 +19,6 @@
       "Bash(ls:*)",
       "Bash(mkdir:*)",
       "Bash(mv:*)",
-      "Bash(mv:*)",
       "Bash(node:*)",
       "Bash(npm init:*)",
       "Bash(npm install:*)",
@@ -34,6 +33,7 @@
       "Bash(ruby:*)",
       "Bash(sed:*)",
       "Bash(timeout:*)",
+      "Bash(touch:*)",
       "Bash(tree:*)",
       "WebFetch(domain:dev.to)",
       "WebFetch(domain:github.com)",
@@ -84,3 +84,4 @@
     "lastShownTime": 1754067859310
   }
 }
+

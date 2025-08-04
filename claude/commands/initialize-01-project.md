@@ -15,6 +15,7 @@ Initialize the project with the following structure:
 │   │   └── CLAUDE.md
 │   └── CLAUDE.md
 ├── e2e
+│   └── CLAUDE.md
 ├── frontend
 │   └── CLAUDE.md
 ├── PRPs
@@ -23,8 +24,9 @@ Initialize the project with the following structure:
 │           └── requirements.md
 ├── CHANGELOG.md
 ├── CLAUDE.md
-├── Profile.dev
-└── start.sh
+├── Procfile.dev
+├── TASKS.md
+└── package.json
 ```
 
 - Initialize a Next.js 15+ project in `frontend/` with TypeScript and shadcn components
@@ -40,10 +42,18 @@ Initialize the project with the following structure:
 
 ## File contents
 
-Ensure `start.sh` includes the following:
+Ensure `TASKS.md` includes the following:
 
-```sh
-lsof -ti:3001 -ti:3000 | xargs kill -9 && foreman start -f Procfile.dev
+```md
+# Tasks
+
+## 🔴 Critical Priority
+
+## 🟠 High Priority
+
+## 🟡 Medium Priority
+
+## 🟢 Low Priority
 ```
 
 Ensure `Procfile.dev` includes the following:

@@ -25,7 +25,7 @@ Analyze codebase and provide prioritized, actionable feedback.
 1. Read existing `TASK.md`
 2. Add findings to appropriate priority sections
 3. Use format: `**[TYPE]** Description in file:line`
-4. Don't duplicate existing tasks
+4. IMPORTANT: Don't duplicate existing tasks
 5. Mark verified completions as `[x]`
 
 ## Process

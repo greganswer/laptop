@@ -21,6 +21,7 @@ Initialize the project with the following structure:
 │   └── archive
 │       └── MVP
 │           └── requirements.md
+├── CHANGELOG.md
 ├── CLAUDE.md
 ├── Profile.dev
 └── start.sh
@@ -321,23 +322,33 @@ Ensure `e2e/CLAUDE.md` contains the following:
 
 ## Project Context
 
-This is a TypeScript project using Playwright for end-to-end testing.
+This is a TypeScript project using Playwright for end-to-end testing with real API integration.
 
 ## Test Strategy
 
 - Focus on critical user journeys (authentication, core workflows)
-- Validate complete user flows from start to finish
+- Validate complete user flows from start to finish using real backend APIs
 - Test both happy paths and error scenarios
-- Use API mocking for reliable, isolated tests
+- Use real API calls for authentic integration testing
+- Implement proper test data setup and cleanup
 
 ## Best Practices
 
+- **Real APIs**: Use actual backend APIs instead of mocks for true integration testing
 - **Selectors**: Use `data-testid` attributes or semantic selectors
 - **Structure**: Group related tests in `test.describe` blocks
-- **Setup**: Use `test.beforeEach` for common setup
-- **Mocking**: Mock API calls with `page.route` for consistency
+- **Setup/Cleanup**: Use `test.beforeEach`/`test.afterEach` for test data management
+- **Data Isolation**: Create unique test data with timestamps to avoid conflicts
+- **Cleanup**: Always clean up created test data to prevent database pollution
 - **Naming**: Write descriptive test names that explain the behavior
 - **Focus**: Keep test files to 3-5 focused tests maximum
+
+## Test Data Management
+
+- **Setup**: Create test data via API calls in `beforeEach` or individual tests
+- **Unique Data**: Use timestamps or UUIDs to ensure unique test data
+- **Cleanup**: Delete test data in `afterEach` hooks
+- **Authentication**: Set up test users and valid JWT tokens for API calls
 
 ## Example Test Structure
 
@@ -345,24 +356,47 @@ This is a TypeScript project using Playwright for end-to-end testing.
 import { expect, test } from '@playwright/test';
 
 test.describe('Feature Name', () => {
-  test.beforeEach(async ({ page }) => {
-    // Mock API responses
-    await page.route('/api/endpoint', (route) => {
-      route.fulfill({
-        status: 200,
-        body: JSON.stringify({ data: 'mock response' }),
-      });
-    });
+  let createdResourceIds: string[] = [];
 
+  test.beforeEach(async ({ page }) => {
+    // Setup: Prepare test environment
     await page.goto('/feature-page');
   });
 
+  test.afterEach(async ({ page }) => {
+    // Cleanup: Delete created test data
+    for (const resourceId of createdResourceIds) {
+      try {
+        await page.request.delete(`/api/resources/${resourceId}`, {
+          headers: { Authorization: `Bearer ${await getTestAuthToken()}` },
+        });
+      } catch (error) {
+        console.warn(`Failed to cleanup resource ${resourceId}:`, error);
+      }
+    }
+    createdResourceIds = [];
+  });
+
+  async function getTestAuthToken(): Promise<string> {
+    // Generate or retrieve test authentication token
+    return 'test-auth-token';
+  }
+
   test('should handle successful user action', async ({ page }) => {
+    // Setup: Create test data via API
+    const response = await page.request.post('/api/resources', {
+      data: { name: `Test Resource ${Date.now()}` },
+      headers: { Authorization: `Bearer ${await getTestAuthToken()}` },
+    });
+    const resource = await response.json();
+    createdResourceIds.push(resource.id);
+
+    // Test: Perform user action
     await page.locator('[data-testid="action-button"]').click();
     await expect(page.locator('[data-testid="success-message"]')).toBeVisible();
   });
 
-  test('should display error for invalid input', async ({ page }) => {
+  test('should display validation errors', async ({ page }) => {
     await page.locator('[data-testid="input"]').fill('invalid-data');
     await page.locator('[data-testid="submit"]').click();
     await expect(page.locator('[data-testid="error-message"]')).toBeVisible();

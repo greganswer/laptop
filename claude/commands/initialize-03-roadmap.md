@@ -33,7 +33,7 @@ $ARGUMENTS
     - Each file is numbered sequentially based on the order the user stories should be completed
     - If the user stories are not numbered, assign them a number based on the order they should be completed
     - If the location already contains any files with a number, increment the highest number by 1 and create new files sequentially
-1. Use subagents to add the relevant content to the correct files, including:
+1. Add the relevant content to the correct files, including:
     - A brief overview of the feature
     - The user stories in Gherkin format with Acceptance Criteria beneath each story
     - Any relevant information from the `<mvp>` section that is needed to complete the feature

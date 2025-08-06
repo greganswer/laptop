@@ -22,7 +22,7 @@ Analyze codebase and provide prioritized, actionable feedback.
 
 ## Task Management
 
-1. Read existing `TASK.md`
+1. Read existing `TASKS.md`
 2. Add findings to appropriate priority sections
 3. Use format: `**[TYPE]** Description in file:line`
 4. IMPORTANT: Don't duplicate existing tasks
@@ -31,9 +31,9 @@ Analyze codebase and provide prioritized, actionable feedback.
 ## Process
 
 1. Scan entire codebase
-2. Read current `TASK.md`
+2. Read current `TASKS.md`
 3. Categorize findings by priority
-4. Update `TASK.md` with actionable tasks
+4. Update `TASKS.md` with actionable tasks
 5. Provide review summary
 
 ## Guidelines

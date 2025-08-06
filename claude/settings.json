@@ -76,7 +76,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "say 'Done'"
+            "command": "say 'Ready'"
           }
         ]
       }
@@ -86,4 +86,3 @@
     "lastShownTime": 1754067859310
   }
 }
-

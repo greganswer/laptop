@@ -66,26 +66,33 @@ frontend: cd frontend && PORT=3001 npm run dev
 Ensure `backend/Gemfile` includes the following (merge any existing groups):
 
 ```ruby
-gem "active_model_serializers"
-gem "dotenv-rails"
-gem "kaminari" # pagination
-gem "lograge"
+gem "active_model_serializers"           # JSON serialization
+gem "dotenv-rails"                       # Environment variables
+gem "kaminari"                           # Pagination
+gem "lograge"                            # Structured logging
+gem "paper_trail", "~> 16.0"             # https://github.com/paper-trail-gem/paper_trail
+gem "paranoia"                           # Soft deletes
+gem "pay", "~> 10.1"                     # https://github.com/pay-rails/pay
+gem "pundit", "~> 2.3"                   # Authorization
 gem "pundit", "~> 2.3"
-gem "rack-cors" 
-gem "redis"
+gem "rack-cors"                          # CORS support
+gem "redis"                              # Cache & sessions
+gem "sidekiq"                            # Background jobs
+gem "sidekiq-cron"                       # Scheduled jobs
+gem "stripe", "~> 15.1"                  # https://github.com/stripe/stripe-ruby
 
 group :development, :test do
-  gem "factory_bot_rails"
-  gem "faker"
-  gem "rspec-rails"
-  gem "rubocop-rspec", require: false
-  gem "rubocop-rspec_rails", require: false
+  gem "factory_bot_rails"                # Test factories
+  gem "faker"                            # Fake data
+  gem "rspec-rails"                      # Testing framework
+  gem "rubocop-rspec", require: false    # RSpec linting
+  gem "rubocop-rspec_rails", require: false # Rails RSpec linting
 end
 
 group :test do
-  gem "pundit-matchers"
-  gem "rspec-sidekiq"
-  gem "shoulda-matchers"
+  gem "pundit-matchers"                   # Pundit testing
+  gem "rspec-sidekiq"                     # Sidekiq testing
+  gem "shoulda-matchers"                  # Rails matchers
 end
 ```
 

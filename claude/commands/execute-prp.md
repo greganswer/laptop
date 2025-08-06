@@ -2,45 +2,69 @@
 description: Execute a Project Request Plan (PRP) file to implement a feature with validation
 ---
 
-# Execute BASE PRP
+# Execute PRP
 
-Implement a feature using using the PRP file.
+Execute a Project Request Plan (PRP) file to implement features systematically with validation.
 
 ## PRP File: $ARGUMENTS
 
 ## Execution Process
 
-1. **Create a branch**
-    - Create the branch off the `main` branch
-    - If the user has unsaved changes, abort and notify the user
-1. **Load PRP**
-   - Read the specified PRP file
-   - Understand all context and requirements
-   - Follow all instructions in the PRP and extend the research if needed
-   - Ensure you have all needed context to implement the PRP fully
-   - Do more web searches and codebase exploration as needed
-1. **ULTRATHINK**
-   - Think hard before you execute the plan. Create a comprehensive plan addressing all requirements.
-   - Break down complex tasks into smaller, manageable steps using your todos tools.
-   - Use the TodoWrite tool to create and track your implementation plan.
-   - Identify implementation patterns from existing code to follow.
-1. **Execute the plan**
-   - Execute the PRP
-   - Implement all the code
-1. **Validate**
-   - Run each validation command
-   - Fix any failures
-   - Re-run until all pass
-1. **Complete**
-   - Ensure all checklist items done
-   - Run final validation suite
-   - Report completion status
-   - Read the PRP again to ensure you have implemented everything
-1. **Reference the PRP**
-   - You can always reference the PRP again if needed
-1. **Create a pull request**
-   - Create a pull request with the branch you created
-   - Ensure the PR description references the PRP file and includes any relevant information
-   - Include a link to the PR in the PRP file for future reference
+### 1. Pre-flight Checks
 
-Note: If validation fails, use error patterns in PRP to fix and retry.
+- Check git status for uncommitted changes - abort if dirty working directory
+- Verify PRP file exists and is readable
+- Create feature branch from `main` branch
+
+### 2. Load & Analyze PRP
+
+- Read the PRP file completely
+- Understand all requirements, context, and acceptance criteria
+- Perform additional research if gaps identified:
+  - Web searches for external dependencies/patterns
+  - Codebase exploration for existing patterns
+  - Documentation review
+
+### 3. Plan Implementation (ULTRATHINK)
+
+- Create comprehensive implementation plan using TodoWrite tool
+- Break complex tasks into manageable steps
+- Identify existing code patterns to follow
+- Map out dependencies and execution order
+- Consider edge cases and error scenarios
+
+### 4. Execute Implementation
+
+- Work through todo list systematically
+- Implement all required code changes
+- Follow existing code conventions and patterns
+- Update todo status as work progresses
+
+### 5. Validation & Testing
+
+- Run all validation commands specified in PRP
+- Fix any test failures or linting issues
+- Re-run validation until all checks pass
+- Verify all PRP requirements implemented
+
+### 6. Completion
+
+- Review PRP file to confirm all items addressed
+- Run final validation suite
+- Create pull request with:
+  - Descriptive title referencing PRP
+  - Summary of changes made
+  - Link to PRP file
+  - Any additional context needed
+
+### Error Handling
+
+- If validation fails, analyze error patterns from PRP
+- Fix issues and retry validation
+- If blocked, reference PRP for guidance or escalate
+
+### Notes
+
+- PRP file can be referenced at any time during execution
+- Maintain clean commit history with conventional commits
+- Abort execution if critical errors encountered

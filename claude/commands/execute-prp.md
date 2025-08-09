@@ -6,6 +6,10 @@ description: Execute a Project Request Plan (PRP) file to implement a feature wi
 
 Execute a Project Request Plan (PRP) file to implement features systematically with validation.
 
+## Quick Reference
+
+`Read PRP → Plan → Implement → Validate → Create PR`
+
 ## PRP File: $ARGUMENTS
 
 ## Execution Process
@@ -14,7 +18,7 @@ Execute a Project Request Plan (PRP) file to implement features systematically w
 
 - Check git status for uncommitted changes - abort if dirty working directory
 - Verify PRP file exists and is readable
-- Create feature branch from `main` branch
+- Create branch from `main` branch (format: `prp-###-feature-name`, e.g., `prp-003-user-auth`)
 
 ### 2. Load & Analyze PRP
 
@@ -52,16 +56,16 @@ Execute a Project Request Plan (PRP) file to implement features systematically w
 - Review PRP file to confirm all items addressed
 - Run final validation suite
 - Create pull request with:
-  - Descriptive title referencing PRP
+  - **PR Title Format**: `<type>: [PRP-###] <description>`
+    - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+    - Example: `feat: [PRP-003] Add user authentication system`
   - Summary of changes made
-  - Link to PRP file
   - Any additional context needed
 
 ### Error Handling
 
-- If validation fails, analyze error patterns from PRP
-- Fix issues and retry validation
-- If blocked, reference PRP for guidance or escalate
+- Validation fails → Fix and retry
+- Critical blocker → Check PRP guidance or abort
 
 ### Notes
 

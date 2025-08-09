@@ -57,7 +57,7 @@
       "Read(.env)"
     ]
   },
-  "model": "sonnet",
+  "model": "opus",
   "hooks": {
     "Notification": [
       {

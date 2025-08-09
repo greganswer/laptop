@@ -15,10 +15,9 @@ Analyze codebase and provide prioritized, actionable feedback.
 
 **Priority levels:**
 
-- 🔴 Critical: Security, breaking bugs, major performance
-- 🟠 High: Code quality, architecture issues
-- 🟡 Medium: Minor bugs, style, missing tests
-- 🟢 Low: Documentation, optimizations
+- Must: Security, breaking bugs, major performance
+- Medium: Code quality, architecture issues, minor bugs, style, missing tests
+- Low: Documentation, optimizations
 
 ## Task Management
 

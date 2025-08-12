@@ -55,6 +55,9 @@ Execute a Project Request Plan (PRP) file to implement features systematically w
 
 - Review PRP file to confirm all items addressed
 - Run final validation suite
+- Move PRP file to archive folder:
+  - Create `PRPs/archive` folder if it doesn't exist
+  - Move the executed PRP file to `PRPs/archive/`
 - Create pull request with:
   - **PR Title Format**: `<type>: [PRP-###] <description>`
     - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`

@@ -16,16 +16,17 @@ Analyze codebase and provide prioritized, actionable feedback.
 **Priority levels:**
 
 - Must: Security, breaking bugs, major performance
-- Medium: Code quality, architecture issues, minor bugs, style, missing tests
-- Low: Documentation, optimizations
+- Should: Code quality, architecture issues, minor bugs, style, missing tests
+- Could: Documentation, optimizations
 
 ## Task Management
 
 1. Read existing `TASKS.md`
-2. Add findings to appropriate priority sections
-3. Use format: `**[TYPE]** Description in file:line`
-4. IMPORTANT: Don't duplicate existing tasks
-5. Mark verified completions as `[x]`
+1. Add findings to appropriate priority sections
+1. Use the same format as existing tasks
+1. If no format exits, use format: `**[TYPE]** Description in file:line`
+1. IMPORTANT: Don't duplicate existing tasks
+1. Mark verified completions as `[x]`
 
 ## Process
 

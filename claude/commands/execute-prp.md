@@ -1,5 +1,5 @@
 ---
-description: Execute a Project Request Plan (PRP) file to implement a feature with validation
+description: Execute a Project Request Plan (PRP) file to implement a feature with validation (auto-selects next PRP if no file specified)
 ---
 
 # Execute PRP
@@ -10,14 +10,26 @@ Execute a Project Request Plan (PRP) file to implement features systematically w
 
 `Read PRP → Plan → Implement → Validate → Create PR`
 
-## PRP File: $ARGUMENTS
+## PRP File Selection
+
+- **If no argument provided:** Automatically selects the next PRP in sequential order from `PRPs/` directory
+- **If argument provided:** Uses the specified PRP file: $ARGUMENTS
 
 ## Execution Process
 
 ### 1. Pre-flight Checks
 
 - Check git status for uncommitted changes - abort if dirty working directory
-- Verify PRP file exists and is readable
+- **PRP Selection:**
+  - If no argument provided:
+    - List all PRP files in `PRPs/` directory (format: `###-*.md`)
+    - Exclude files in `PRPs/archive/` subdirectory
+    - Sort numerically and select the lowest numbered PRP
+    - Display: "Auto-selected PRP: ###-feature-name.md"
+    - Abort if no PRPs found with message: "No PRP files found in PRPs/ directory"
+  - If argument provided:
+    - Use the specified PRP file path
+    - Verify the file exists and is readable
 - Create branch from `main` branch (format: `prp-###-feature-name`, e.g., `prp-003-user-auth`)
 
 ### 2. Load & Analyze PRP
@@ -48,6 +60,7 @@ Execute a Project Request Plan (PRP) file to implement features systematically w
 
 - Run all validation commands specified in PRP
 - Fix any test failures or linting issues
+  - If tests fail, use @claude/agents/debug-specialist to diagnose and fix issues
 - Re-run validation until all checks pass
 - Verify all PRP requirements implemented
 
@@ -58,6 +71,12 @@ Execute a Project Request Plan (PRP) file to implement features systematically w
 - Move PRP file to archive folder:
   - Create `PRPs/archive` folder if it doesn't exist
   - Move the executed PRP file to `PRPs/archive/`
+- Update CHANGELOG.md if present:
+  - Check if CHANGELOG.md exists in project root
+  - If exists: Add entry under "[Unreleased]" section
+  - Format: `- [PRP-###] Description` under appropriate category (Added/Changed/Fixed/etc.)
+  - Commit with message: `docs: update CHANGELOG for PRP-###`
+  - If not present: Skip (no error)
 - Create pull request with:
   - **PR Title Format**: `<type>: [PRP-###] <description>`
     - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`

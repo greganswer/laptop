@@ -83,5 +83,7 @@
   },
   "feedbackSurveyState": {
     "lastShownTime": 1754067859310
-  }
+  },
+  "alwaysThinkingEnabled": true,
+  "spinnerTipsEnabled": false
 }

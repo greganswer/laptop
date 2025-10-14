@@ -8,7 +8,7 @@
 
 ## Engineering Standards
 
-- Conventional commits only
+- Conventional commits only, with 1 paragraph describing why the change was made
 - No placeholders or untested fixes
 - Search before implementing
 - Minimize file creation
